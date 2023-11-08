@@ -1,4 +1,5 @@
 mod utils;
+mod embed;
 
 use wasm_bindgen::prelude::*;
 
