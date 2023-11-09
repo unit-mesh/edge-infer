@@ -1,6 +1,10 @@
 [workspace]
 members = [
+    "inference_core",
+
     "inference_wasm",
+
+    "inference_grpc",
 ]
 
 [profile.release]

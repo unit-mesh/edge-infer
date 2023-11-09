@@ -1,5 +1,5 @@
 [package]
-name = "browser-embedding-poc"
+name = "inference_wasm"
 version = "0.1.0"
 authors = ["Phodal Huang <h@phodal.com>"]
 edition = "2018"
@@ -15,11 +15,6 @@ wasm-bindgen = "0.2.88"
 
 tracing = "0.1.40"
 tracing-subscriber = { version = "0.3.17", features = ["env-filter", "registry"] }
-anyhow = "1.0.75"
-
-ort = { git = "https://github.com/bloopai/ort", branch = "env-builder-telemetry", features = ["load-dynamic"] }
-tokenizers = { version = "0.14.1", default-features = false, features = ["progressbar", "cli", "onig", "esaxx_fast"] }
-ndarray = "0.15.6"
 
 getrandom = { version = "0.2", features = ["js"] }
 

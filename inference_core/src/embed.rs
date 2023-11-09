@@ -6,28 +6,11 @@ use ort::{
     tensor::{FromArray, InputTensor, OrtOwnedTensor},
     Environment, ExecutionProvider, GraphOptimizationLevel, LoggingLevel, SessionBuilder,
 };
-use tracing::trace;
 
 #[derive(Clone)]
 pub struct Semantic {
     tokenizer: Arc<tokenizers::Tokenizer>,
     session: Arc<ort::Session>,
-}
-
-fn main() -> Result<(), anyhow::Error> {
-    let model_dir = Path::new(env!("CARGO_MANIFEST_DIR")).join("model");
-    let semantic = tokio::runtime::Runtime::new().unwrap().block_on(async {
-        Semantic::initialize(&model_dir).await.unwrap()
-    });
-
-    let sequence = "Hello, world!";
-    let tokenizer_output = semantic.tokenizer.encode(sequence, true).unwrap();
-    println!("{:?}", tokenizer_output.get_ids());
-
-    let seq = semantic.embed(sequence);
-    println!("{:?}", seq);
-
-    Ok(())
 }
 
 pub type Embedding = Vec<f32>;
@@ -71,7 +54,6 @@ impl Semantic {
         let attention_mask = tokenizer_output.get_attention_mask();
         let token_type_ids = tokenizer_output.get_type_ids();
         let length = input_ids.len();
-        trace!("embedding {} tokens {:?}", length, sequence);
 
         let inputs_ids_array = ndarray::Array::from_shape_vec(
             (1, length),

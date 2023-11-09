@@ -1,0 +1,11 @@
+[package]
+name = "inference_core"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.75"
+
+ort = { git = "https://github.com/bloopai/ort", branch = "env-builder-telemetry", features = ["load-dynamic"] }
+tokenizers = { version = "0.14.1", default-features = false, features = ["progressbar", "cli", "onig", "esaxx_fast"] }
+ndarray = "0.15.6"
