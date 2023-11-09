@@ -1,8 +1,7 @@
 # Inference
 
-Inference is a gRPC-based inference server designed to support ONNX models. It offers flexible configuration options,
-allowing users to specify parameters such as the listening port, model file, batch size, and more. The server is built
-on a specific model architecture with numerous input and output nodes to cater to complex inference requirements.
+Inference is a gRPC-based server tailored for running ONNX models on edge devices, such as Android, iOS, or other
+microcontroller units (MCUs).
 
 - Onnx Runtime
 
