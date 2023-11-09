@@ -7,6 +7,17 @@ edition = "2021"
 
 [dependencies]
 tonic = "0.10.2"
+prost = "0.12"
+tokio = { version = "1.0", features = ["macros", "rt-multi-thread"] }
+
+[[bin]]
+name = "inference-server"
+path = "src/bin/server.rs"
+
+[[bin]]
+name = "inference-client"
+path = "src/bin/client.rs"
+
 
 [build-dependencies]
 tonic-build = { version = "0.10.2", features = ["prost"] }
