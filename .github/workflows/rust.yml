@@ -21,6 +21,8 @@ jobs:
 
     - uses: hecrj/setup-rust-action@v1
 
+    - run: rustup target add wasm32-unknown-unknown
+
     - name: Install protoc
       uses: taiki-e/install-action@v2
       with:
