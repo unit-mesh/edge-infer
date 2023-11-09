@@ -8,6 +8,8 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
+  PROTOC_VERSION: 3.23.4
+  RUSTFLAGS: "-D warnings"
 
 jobs:
   build:
@@ -16,7 +18,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build
-      run: cargo build --verbose
+
+    - uses: hecrj/setup-rust-action@v1
+
+    - name: Install protoc
+      uses: taiki-e/install-action@v2
+      with:
+        tool: protoc@${{ env.PROTOC_VERSION }}
+
     - name: Run tests
       run: cargo test --verbose
