@@ -6,7 +6,6 @@ use ort::{
     tensor::{FromArray, InputTensor, OrtOwnedTensor},
     Environment, ExecutionProvider, GraphOptimizationLevel, LoggingLevel, SessionBuilder,
 };
-use tracing::log::trace;
 use tracing::trace;
 
 #[derive(Clone)]
