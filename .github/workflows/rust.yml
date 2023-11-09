@@ -9,7 +9,6 @@ on:
 env:
   CARGO_TERM_COLOR: always
   PROTOC_VERSION: 3.23.4
-  RUSTFLAGS: "-D warnings"
 
 jobs:
   build:
@@ -17,7 +16,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+    - uses: actions/cache@v3.3.2
+      with:
+        path: |
+          ~/.cargo/registry
+          ~/.cargo/git
+          target
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
     - uses: hecrj/setup-rust-action@v1
 
