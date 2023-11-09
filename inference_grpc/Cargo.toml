@@ -10,6 +10,8 @@ tonic = "0.10.2"
 prost = "0.12"
 tokio = { version = "1.0", features = ["macros", "rt-multi-thread"] }
 
+inference_core = { path = "../inference_core" }
+
 [[bin]]
 name = "inference-server"
 path = "src/bin/server.rs"
