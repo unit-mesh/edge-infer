@@ -1,0 +1,6 @@
+firefox:
+    inference_wasm-pack test --headless --firefox
+build:
+    inference_wasm-pack build
+publish:
+    inference_wasm-pack publish
