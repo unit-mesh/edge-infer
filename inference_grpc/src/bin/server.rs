@@ -1,10 +1,11 @@
-use std::path::Path;
+use clap::Parser;
 use tonic::{transport::Server, Request, Response, Status};
 
 use tokenizer::tokenizer_server::{Tokenizer, TokenizerServer};
 use tokenizer::{EncodeRequest, EncodeReply};
 
 use inference_core::embed::Semantic;
+use inference_grpc::inference_args::InferenceArgs;
 
 pub mod tokenizer {
     tonic::include_proto!("tokenizer");
@@ -31,6 +32,7 @@ impl Tokenizer for MyTokenizer {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let args = InferenceArgs::parse();
     let addr = "[::1]:50051".parse().unwrap();
     let greeter = MyTokenizer::default();
 
