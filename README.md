@@ -19,6 +19,12 @@ Platform:
 - [ ] Flexible Configuration: Easily configurable via command-line parameters, including listening port, batch size,
   thread count, and others.
 
+## Usecases
+
+- [ ] SearchEverywhere: Search for anything, anywhere, anytime.
+- [ ] AutoComplete: Auto-complete your code, your life.
+- [ ] Summarization: Summarize your text, your life.
+
 ## License
 
 This project is licensed under the MIT License, See [LICENSE](LICENSE) for the full license text.
