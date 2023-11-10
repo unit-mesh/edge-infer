@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 inference_core = { path = "../inference_core" }
+tokio = { version = "1.0.0", features = ["rt", "rt-multi-thread", "macros"] }

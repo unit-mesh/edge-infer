@@ -1,8 +1,14 @@
 use inference_core::embed::Semantic;
 
-const model: &[u8] = include_bytes!("../../model/model.onnx");
-const tok: &[u8] = include_bytes!("../../model/tokenizer.json");
+const MODEL: &[u8] = include_bytes!("../../model/model.onnx");
+const TOK: &[u8] = include_bytes!("../../model/tokenizer.json");
 
-fn main() {
-    Semantic::initialize(model.to_vec(), tok.to_vec()).unwrap();
+#[tokio::main]
+async fn main() {
+    let semantic = Semantic::initialize(MODEL.to_vec(), TOK.to_vec())
+        .await.unwrap();
+
+    let encoding = semantic.embed("Tonic").unwrap();
+
+    println!("encoding: {:?}", encoding);
 }
