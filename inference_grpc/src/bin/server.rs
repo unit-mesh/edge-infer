@@ -1,4 +1,3 @@
-use std::cell::RefCell;
 use std::pin::Pin;
 use tokio::sync::Mutex;
 use clap::Parser;
@@ -18,22 +17,16 @@ pub mod tokenizer {
 #[derive(Default)]
 pub struct MyTokenizer {
     sema: Mutex<Option<Pin<Box<Semantic>>>>,
-}
 
-thread_local! {
-    static TOKENIZER_DATA: RefCell<Vec<u8>> = RefCell::default();
+    tokenzier: Mutex<Vec<u8>>,
+    model: Mutex<Vec<u8>>,
 }
-
-thread_local! {
-    static MODEL: RefCell<Vec<u8>> = RefCell::default();
-}
-
 
 #[tonic::async_trait]
 impl Tokenizer for MyTokenizer {
     async fn set_tokenizer_json(&self, reqeust: Request<Streaming<TokenizerJson>>) -> Result<Response<GeneralResponse>, Status> {
-        TOKENIZER_DATA.with_borrow_mut(|t| t.clear());
-
+        let mut t = self.tokenzier.lock().await;
+        t.clear();
 
         let mut stream = reqeust.into_inner();
         while let Some(json) = stream.next().await {
@@ -45,7 +38,7 @@ impl Tokenizer for MyTokenizer {
                     error: format!("json error: {}", e).into(),
                 })),
             };
-            TOKENIZER_DATA.with_borrow_mut(|t| t.extend(json.json));
+            t.extend(json.json);
         }
 
 
@@ -56,7 +49,8 @@ impl Tokenizer for MyTokenizer {
     }
 
     async fn set_model(&self, reqeust: Request<Streaming<Model>>) -> Result<Response<GeneralResponse>, Status> {
-        MODEL.with_borrow_mut(|t| t.clear());
+        let mut t = self.model.lock().await;
+        t.clear();
 
         let mut stream = reqeust.into_inner();
         while let Some(model) = stream.next().await {
@@ -68,7 +62,7 @@ impl Tokenizer for MyTokenizer {
                     error: format!("model error: {}", e).into(),
                 })),
             };
-            MODEL.with_borrow_mut(|t| t.extend(model.model));
+            t.extend(model.model);
         }
 
 
@@ -80,9 +74,11 @@ impl Tokenizer for MyTokenizer {
     }
 
     async fn init_model(&self, _: tonic::Request<()>) -> Result<Response<GeneralResponse>, Status> {
-        let tokenizer_data = TOKENIZER_DATA.with_borrow_mut(|t| t.clone());
+        let model = self.model.lock().await;
+        let tokenizer = self.tokenzier.lock().await;
 
-        let sema = match Semantic::initialize(MODEL.with_borrow(|it| it.clone()), tokenizer_data).await {
+
+        let sema = match Semantic::initialize(model.clone(), tokenizer.clone()).await {
             Ok(t) => t,
             Err(e) => return Ok(Response::new(GeneralResponse{
                 success: false,

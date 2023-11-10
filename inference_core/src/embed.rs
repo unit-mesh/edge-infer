@@ -2,15 +2,23 @@ use std::pin::Pin;
 use std::sync::Arc;
 use anyhow::anyhow;
 use ndarray::{Axis};
+use std::mem::ManuallyDrop;
 
 use ort::{Environment, ExecutionProvider, GraphOptimizationLevel, LoggingLevel, SessionBuilder};
 
 pub struct Semantic {
-    #[allow(dead_code)]
-    model: Vec<u8>,
+    model_ref: &'static [u8],
 
     tokenizer: Arc<tokenizers::Tokenizer>,
     session: Arc<ort::Session>,
+}
+
+impl Drop for Semantic {
+    fn drop(&mut self) {
+        unsafe {
+            ManuallyDrop::drop(&mut ManuallyDrop::new(self.model_ref));
+        }
+    }
 }
 
 pub type Embedding = Vec<f32>;
@@ -33,15 +41,15 @@ impl Semantic {
 
         let tokenizer: Arc<tokenizers::Tokenizer> = tokenizers::Tokenizer::from_bytes(tokenizer_data).map_err(|e| anyhow!("tok frombytes error: {}", e))?.into();
 
-        let data_ref: &[u8] = unsafe { &*(model.as_slice() as *const [u8]) };
+        let model_ref = model.leak();
 
         let semantic = Self {
-            model,
+            model_ref,
             tokenizer,
             session: SessionBuilder::new(&environment)?
                 .with_optimization_level(GraphOptimizationLevel::Level3)?
                 .with_intra_threads(threads)?
-                .with_model_from_memory(data_ref)
+                .with_model_from_memory(model_ref)
                 .unwrap()
                 .into(),
         };
