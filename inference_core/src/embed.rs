@@ -1,5 +1,6 @@
-use std::path::Path;
+use std::pin::Pin;
 use std::sync::Arc;
+use anyhow::anyhow;
 use ndarray::Axis;
 
 use ort::{
@@ -7,16 +8,18 @@ use ort::{
     Environment, ExecutionProvider, GraphOptimizationLevel, LoggingLevel, SessionBuilder,
 };
 
-#[derive(Clone)]
 pub struct Semantic {
+    #[allow(dead_code)]
+    model: Vec<u8>,
+
     tokenizer: Arc<tokenizers::Tokenizer>,
-    session: Arc<ort::Session>,
+    session: Arc<ort::InMemorySession<'static>>,
 }
 
 pub type Embedding = Vec<f32>;
 
 impl Semantic {
-    pub async fn initialize(model_dir: &Path) -> Result<Self, anyhow::Error> {
+    pub async fn initialize(model: Vec<u8>, tokenizer_data: Vec<u8>) -> Result<Pin<Box<Semantic>>, anyhow::Error> {
         let environment = Arc::new(
             Environment::builder()
                 .with_name("Encode")
@@ -31,20 +34,23 @@ impl Semantic {
             1
         };
 
-        let tokenizer: Arc<tokenizers::Tokenizer> = tokenizers::Tokenizer::from_file(model_dir.join("tokenizer.json"))
-            .unwrap()
-            .into();
+        let tokenizer: Arc<tokenizers::Tokenizer> = tokenizers::Tokenizer::from_bytes(tokenizer_data).map_err(|e| anyhow!("tok frombytes error: {}", e))?.into();
 
-        let session: Arc<ort::Session> = SessionBuilder::new(&environment)?
-            .with_optimization_level(GraphOptimizationLevel::Level3)?
-            .with_intra_threads(threads)?
-            .with_model_from_file(model_dir.join("model.onnx"))?
-            .into();
+        let data_ref: &[u8] = unsafe {&*( model.as_slice() as *const [u8] )};
 
-        Ok(Self {
+        let semantic = Self {
+            model,
+
             tokenizer,
-            session,
-        })
+            session: SessionBuilder::new(&environment)?
+                .with_optimization_level(GraphOptimizationLevel::Level3)?
+                .with_intra_threads(threads)?
+                .with_model_from_memory(data_ref)
+                .unwrap()
+                .into(),
+        };
+
+        Ok(Box::pin(semantic))
     }
 
     pub fn embed(&self, sequence: &str) -> anyhow::Result<Embedding> {

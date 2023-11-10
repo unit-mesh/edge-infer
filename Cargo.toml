@@ -1,12 +1,8 @@
 [workspace]
 members = [
-    "inference_core",
+    "./inference_core",
 
-    "inference_wasm",
+    "./inference_wasm",
 
-    "inference_grpc",
+    "./inference_grpc",
 ]
-
-[profile.release]
-# Tell `rustc` to optimize for small code size.
-opt-level = "s"

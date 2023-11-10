@@ -1,5 +1,8 @@
 syntax = "proto3";
 
+
+import "google/protobuf/empty.proto";
+
 //
 //option java_multiple_files = true;
 //option java_package = "org.unitmesh.inference.tokenizer";
@@ -8,7 +11,24 @@ syntax = "proto3";
 package tokenizer;
 
 service Tokenizer {
-  rpc Encode (EncodeRequest) returns (EncodeReply) {}
+  rpc SetTokenizerJson (stream TokenizerJson) returns (GeneralResponse);
+  rpc SetModel (stream Model) returns (GeneralResponse);
+  rpc InitModel (google.protobuf.Empty) returns (GeneralResponse);
+
+  rpc Encode (EncodeRequest) returns (EncodeReply);
+}
+
+message TokenizerJson {
+  bytes json = 1;
+}
+
+message Model {
+  bytes model = 1;
+}
+
+message GeneralResponse {
+  bool success = 1;
+  optional string error = 2;
 }
 
 message EncodeRequest {
