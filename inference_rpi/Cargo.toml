@@ -7,3 +7,5 @@ edition = "2021"
 
 [dependencies]
 rust_gpiozero = "0.2.1"
+
+inference_core = { path = "../inference_core" }
