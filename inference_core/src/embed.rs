@@ -1,40 +1,27 @@
-use std::mem::ManuallyDrop;
 use std::pin::Pin;
 use std::sync::Arc;
 use anyhow::anyhow;
-use ndarray::Axis;
+use ndarray::{Axis};
 
-use ort::{
-    tensor::{FromArray, InputTensor, OrtOwnedTensor},
-    Environment, ExecutionProvider, GraphOptimizationLevel, LoggingLevel, SessionBuilder,
-};
+use ort::{Environment, ExecutionProvider, GraphOptimizationLevel, LoggingLevel, SessionBuilder};
 
 pub struct Semantic {
-    model_ref: &'static [u8],
+    #[allow(dead_code)]
+    model: Vec<u8>,
 
     tokenizer: Arc<tokenizers::Tokenizer>,
-    session: Arc<ort::InMemorySession<'static>>,
-}
-
-impl Drop for Semantic {
-    fn drop(&mut self) {
-        unsafe {
-            ManuallyDrop::drop(&mut ManuallyDrop::new(self.model_ref));
-        }
-    }
+    session: Arc<ort::Session>,
 }
 
 pub type Embedding = Vec<f32>;
 
 impl Semantic {
     pub async fn initialize(model: Vec<u8>, tokenizer_data: Vec<u8>) -> Result<Pin<Box<Semantic>>, anyhow::Error> {
-        let model_ref = model.leak();
-
         let environment = Arc::new(
             Environment::builder()
                 .with_name("Encode")
                 .with_log_level(LoggingLevel::Warning)
-                .with_execution_providers([ExecutionProvider::cpu()])
+                .with_execution_providers([ExecutionProvider::CPU(Default::default())])
                 .build()?,
         );
 
@@ -46,14 +33,15 @@ impl Semantic {
 
         let tokenizer: Arc<tokenizers::Tokenizer> = tokenizers::Tokenizer::from_bytes(tokenizer_data).map_err(|e| anyhow!("tok frombytes error: {}", e))?.into();
 
-        let semantic = Self {
-            model_ref,
+        let data_ref: &[u8] = unsafe { &*(model.as_slice() as *const [u8]) };
 
+        let semantic = Self {
+            model,
             tokenizer,
             session: SessionBuilder::new(&environment)?
                 .with_optimization_level(GraphOptimizationLevel::Level3)?
                 .with_intra_threads(threads)?
-                .with_model_from_memory(model_ref)
+                .with_model_from_memory(data_ref)
                 .unwrap()
                 .into(),
         };
@@ -62,35 +50,68 @@ impl Semantic {
     }
 
     pub fn embed(&self, sequence: &str) -> anyhow::Result<Embedding> {
-        let tokenizer_output = self.tokenizer.encode(sequence, true).unwrap();
+        let mut encodings = self.tokenizer.encode_batch(vec![sequence], true).unwrap();
 
-        let input_ids = tokenizer_output.get_ids();
-        let attention_mask = tokenizer_output.get_attention_mask();
-        let token_type_ids = tokenizer_output.get_type_ids();
-        let length = input_ids.len();
+        // let length = tokenizer_output.get_ids().len();
 
-        let inputs_ids_array = ndarray::Array::from_shape_vec(
-            (1, length),
-            input_ids.iter().map(|&x| x as i64).collect(),
-        )?;
+        let (input_ids, attention_mask, token_type_ids) = encodings.iter_mut().fold(
+            (Vec::new(), Vec::new(), Vec::new()),
+            |(mut input_ids, mut attention_mask, mut token_type_ids), encoding| {
+                encoding.pad(
+                    512,
+                    u32::MAX,
+                    u32::MAX,
+                    "[PAD]",
+                    tokenizers::PaddingDirection::Right,
+                );
+                encoding.truncate(512, 0, tokenizers::TruncationDirection::Right);
+                input_ids.extend(encoding.get_ids().iter().map(|item| *item as i64));
+                attention_mask.extend(
+                    encoding
+                        .get_attention_mask()
+                        .iter()
+                        .map(|item| *item as i64),
+                );
+                token_type_ids.extend(encoding.get_type_ids().iter().map(|item| *item as i64));
+                (input_ids, attention_mask, token_type_ids)
+            },
+        );
 
-        let attention_mask_array = ndarray::Array::from_shape_vec(
-            (1, length),
-            attention_mask.iter().map(|&x| x as i64).collect(),
-        )?;
+        // Run inference
+        let batch_size = encodings.len();
+        let sequence_length = 512;
 
-        let token_type_ids_array = ndarray::Array::from_shape_vec(
-            (1, length),
-            token_type_ids.iter().map(|&x| x as i64).collect(),
-        )?;
+        let input_ids = ndarray::CowArray::from(&input_ids)
+            .into_shape((batch_size, sequence_length))
+            .unwrap()
+            .into_dyn();
+        let input_ids = ndarray::CowArray::from(&input_ids)
+            .into_shape((batch_size, sequence_length))
+            .unwrap()
+            .into_dyn();
+        let input_ids = ort::Value::from_array(None, &input_ids).unwrap();
 
-        let outputs = self.session.run([
-            InputTensor::from_array(inputs_ids_array.into_dyn()),
-            InputTensor::from_array(attention_mask_array.into_dyn()),
-            InputTensor::from_array(token_type_ids_array.into_dyn()),
-        ])?;
+        print!("input_ids: {:?}", input_ids);
 
-        let output_tensor: OrtOwnedTensor<f32, _> = outputs[0].try_extract().unwrap();
+        let attention_mask = ndarray::CowArray::from(&attention_mask)
+            .into_shape((batch_size, sequence_length))
+            .unwrap()
+            .into_dyn();
+        let attention_mask = ort::Value::from_array(None, &attention_mask).unwrap();
+
+        print!("attention_mask: {:?}", attention_mask);
+
+        let token_type_ids = ndarray::CowArray::from(&token_type_ids)
+            .into_shape((batch_size, sequence_length))
+            .unwrap()
+            .into_dyn();
+        let token_type_ids = ort::Value::from_array(None, &token_type_ids).unwrap();
+
+        print!("token_type_ids: {:?}", token_type_ids);
+
+        let outputs = self.session.run(ort::inputs![input_ids, attention_mask, token_type_ids].unwrap()).unwrap();
+
+        let output_tensor = outputs[0].extract_tensor::<f32>().unwrap();
         let sequence_embedding = &*output_tensor.view();
         let pooled = sequence_embedding.mean_axis(Axis(1)).unwrap();
 

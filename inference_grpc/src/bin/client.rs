@@ -9,8 +9,8 @@ pub mod tokenizer {
     tonic::include_proto!("tokenizer");
 }
 
-const model: &[u8] = include_bytes!("D:\\Downloads\\model.onnx");
-const tok: &[u8] = include_bytes!("D:\\Downloads\\tokenizer.json");
+const model: &[u8] = include_bytes!("/Users/phodal/works/fework/LLMPoc/app/src/main/assets/model/model.onnx");
+const tok: &[u8] = include_bytes!("/Users/phodal/works/fework/LLMPoc/app/src/main/assets/model/tokenizer.json");
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
