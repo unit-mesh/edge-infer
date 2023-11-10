@@ -1,6 +1,6 @@
-# Inference
+# EdgeInference
 
-Inference is a gRPC-based server tailored for running ONNX models on edge devices, such as Android, iOS, or other
+EdgeInference is a gRPC-based server tailored for running ONNX models on edge devices, such as Android, iOS, or other
 microcontroller units (MCUs).
 
 - Onnx Runtime
