@@ -11,8 +11,4 @@ pub struct InferenceArgs {
     /// Path to the model file [required]
     #[arg(short, long, required = true)]
     model: String,
-
-    /// Model type, available values: [onnx, llama] [required]
-    #[arg(short, long, required = true)]
-    model_type: String,
 }
