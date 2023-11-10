@@ -42,7 +42,7 @@ Not working:
 - Arduino M0 Pro, Flash: 256 KB, SRAM: 32Kb
     - Official: [Arduino M0 Pro](https://docs.arduino.cc/retired/boards/arduino-m0-pro)
     - Rust's [cortex-m-quickstart](https://github.com/rust-embedded/cortex-m-quickstart)]
-
+- Raspberry Pi Zero ? see in [inference_rpi](inference_rpi/README.md)
 
 ## License
 
