@@ -16,16 +16,18 @@ Platform:
 ## Todos
 
 - [ ] GRPC server with [tonic](https://github.com/hyperium/tonic)
-- [ ] Onnx Runtime
-- [ ] Tokenizer
+- [x] Onnx Runtime
+- [x] Tokenizer
+- [ ] Multiple OS support: Windows, Mac, Android, iOS, Linux Desktop (x86, x64), Embedded Linux (ARM).
 - [ ] Flexible Configuration: Easily configurable via command-line parameters, including listening port, batch size,
   thread count, and others.
 
 ## Usecases
 
 - [ ] SearchEverywhere: Search for anything, anywhere, anytime.
-- [ ] AutoComplete: Auto-complete your code, your life.
-- [ ] Summarization: Summarize your text, your life.
+- [ ] AutoComplete
+- [ ] Summarization
+- [ ] SpeechToText
 
 ## Resources
 
@@ -33,16 +35,17 @@ Platform:
 
 ToSpike
 
-- [ ] Raspberry Pi Zero W, Flash: 512 MB, SRAM: 512 MB
-    - Official: [Raspberry Pi Zero W](https://www.raspberrypi.com/products/raspberry-pi-zero/)
-    - [Using Rust to Control a Raspberry Pi Zero W Rover](https://disconnected.systems/blog/rust-powered-rover/)
+- Raspberry Pi Classic
 
 Not working:
 
 - Arduino M0 Pro, Flash: 256 KB, SRAM: 32Kb
     - Official: [Arduino M0 Pro](https://docs.arduino.cc/retired/boards/arduino-m0-pro)
     - Rust's [cortex-m-quickstart](https://github.com/rust-embedded/cortex-m-quickstart)]
-- Raspberry Pi Zero ? see in [inference_rpi](inference_rpi/README.md)
+- Raspberry Pi Zero W, Flash: 512 MB, SRAM: 512 MB
+  - Official: [Raspberry Pi Zero W](https://www.raspberrypi.com/products/raspberry-pi-zero/)
+  - [Using Rust to Control a Raspberry Pi Zero W Rover](https://disconnected.systems/blog/rust-powered-rover/)
+  - Not working reason: See in [inference_rpi](inference_rpi/README.md)
 
 ## License
 
