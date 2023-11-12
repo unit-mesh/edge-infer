@@ -18,6 +18,7 @@ Platform:
 - [ ] GRPC server with [tonic](https://github.com/hyperium/tonic)
 - [x] Onnx Runtime
 - [x] Tokenizer
+- [ ] [UniFFI](https://github.com/mozilla/uniffi-rs), is a toolkit for building cross-platform software components in Rust.
 - [ ] Multiple OS support: Windows, Mac, Android, iOS, Linux Desktop (x86, x64), Embedded Linux (ARM).
 - [ ] Flexible Configuration: Easily configurable via command-line parameters, including listening port, batch size,
   thread count, and others.
@@ -27,7 +28,6 @@ Platform:
 - [ ] SearchEverywhere: Search for anything, anywhere, anytime.
 - [ ] AutoComplete
 - [ ] Summarization
-- [ ] SpeechToText
 
 ## Resources
 

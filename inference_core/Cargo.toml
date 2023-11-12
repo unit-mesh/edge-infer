@@ -10,3 +10,12 @@ anyhow = "1.0.75"
 ort = { git = "https://github.com/pykeio/ort.git", rev = "9a631f1" }
 tokenizers = { version = "0.14.1", default-features = false, features = ["progressbar", "cli", "onig", "esaxx_fast"] }
 ndarray = "0.15.6"
+
+uniffi = { version = "0.25" }
+
+[lib]
+crate-type = ["lib", "cdylib"]
+name = "inference"
+
+[build-dependencies]
+uniffi = { version = "0.25", features = ["build"] }

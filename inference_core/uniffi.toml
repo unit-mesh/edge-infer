@@ -1,0 +1,9 @@
+[bindings.kotlin]
+package_name = "org.unitmesh.inference"
+cdylib_name = "inference"
+
+[bindings.swift]
+cdylib_name = "inference"
+
+[bindings.python]
+cdylib_name = "inference"

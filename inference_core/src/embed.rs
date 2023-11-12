@@ -58,7 +58,7 @@ impl Semantic {
     }
 
     pub fn embed(&self, sequence: &str) -> anyhow::Result<Embedding> {
-        let mut encoding = self.tokenizer.encode(sequence, true).unwrap();
+        let encoding = self.tokenizer.encode(sequence, true).unwrap();
 
         let input_ids = encoding.get_ids().iter().map(|item| *item as i64).collect::<Vec<_>>();
         let attention_mask = encoding.get_attention_mask().iter().map(|item| *item as i64).collect::<Vec<_>>();

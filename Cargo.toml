@@ -3,5 +3,6 @@ members = [
     "inference_core",
     "inference_wasm",
     "inference_grpc",
-    "inference_rpi",
+
+#    "inference_rpi",
 ]
