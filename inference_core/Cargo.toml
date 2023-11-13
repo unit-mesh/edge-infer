@@ -12,6 +12,7 @@ tokenizers = { version = "0.14.1", default-features = false, features = ["progre
 ndarray = "0.15.6"
 
 uniffi = { version = "0.25" }
+uuid = { version = "1.5.0", features = ["v4"] }
 
 [lib]
 crate-type = ["lib", "cdylib"]

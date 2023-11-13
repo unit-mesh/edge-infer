@@ -1,16 +1,25 @@
 use std::collections::HashMap;
 use crate::embedding::Embedding;
 
-struct Document {
+pub struct Document {
     id: String,
     metadata: Metadata,
     text: String,
     vector: Embedding,
 }
 
-struct Metadata {
+pub struct Metadata {
     metadata: HashMap<String, String>,
 }
+
+impl Metadata {
+    pub fn new() -> Self {
+        Self {
+            metadata: HashMap::new(),
+        }
+    }
+}
+
 
 impl Document {
     fn from(string_value: String) -> Self {
