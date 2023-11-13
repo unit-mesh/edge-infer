@@ -1,7 +1,7 @@
+namespace inference { };
+
 [Custom]
 typedef sequence<f32> Embedding;
-
-namespace inference { };
 
 [Trait]
 interface Similarity {

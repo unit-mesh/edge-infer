@@ -1,5 +1,5 @@
 [bindings.kotlin]
-package_name = "org.unitmesh.inference"
+package_name = "org.unitmesh.bindgen"
 cdylib_name = "inference"
 
 [bindings.swift]
