@@ -20,3 +20,7 @@ name = "inference_core"
 
 [build-dependencies]
 uniffi = { version = "0.25", features = ["build"] }
+
+
+[dev-dependencies]
+uniffi = { version = "0.25", features = ["bindgen-tests"] }

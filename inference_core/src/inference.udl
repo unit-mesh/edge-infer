@@ -1,3 +1,9 @@
-namespace inference {
-    string hello_name(optional string name = "world");
+[Custom]
+typedef sequence<f32> Embedding;
+
+namespace inference { };
+
+[Trait]
+interface Similarity {
+    float similarity_score([ByRef] Embedding set1, [ByRef] Embedding set2);
 };

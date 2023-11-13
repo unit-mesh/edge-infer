@@ -103,6 +103,6 @@ impl Semantic {
         let sequence_embedding = &*output_tensor.view();
         let pooled = sequence_embedding.mean_axis(Axis(1)).unwrap();
 
-        Ok(pooled.to_owned().as_slice().unwrap().to_vec())
+        Ok(Embedding(pooled.to_owned().as_slice().unwrap().to_vec()))
     }
 }

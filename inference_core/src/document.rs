@@ -28,7 +28,7 @@ impl Document {
             id: "".to_string(),
             metadata: Metadata::new(),
             text: string_value,
-            vector: vec![],
+            vector: Embedding(vec![]),
         }
     }
 
@@ -37,7 +37,7 @@ impl Document {
             id: "".to_string(),
             metadata,
             text: string_value,
-            vector: vec![],
+            vector: Embedding(vec![]),
         }
     }
 }
