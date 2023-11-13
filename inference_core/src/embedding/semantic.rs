@@ -1,3 +1,4 @@
+use std::fmt::{Display, Formatter};
 use std::mem::ManuallyDrop;
 use std::pin::Pin;
 use std::sync::Arc;
@@ -10,7 +11,6 @@ use crate::embedding::Embedding;
 
 pub struct Semantic {
     model_ref: &'static [u8],
-
     tokenizer: Arc<tokenizers::Tokenizer>,
     session: Arc<ort::Session>,
 }
@@ -57,8 +57,9 @@ impl Semantic {
         Ok(Box::pin(semantic))
     }
 
-    pub fn embed(&self, sequence: &str) -> anyhow::Result<Embedding> {
-        let encoding = self.tokenizer.encode(sequence, true).unwrap();
+    pub fn embed(&self, sequence: &str) -> Result<Embedding, SemanticError> {
+        let encoding = self.tokenizer.encode(sequence, true)
+            .map_err(|_| SemanticError::TokenizeEncodeError)?;
 
         let input_ids = encoding.get_ids().iter().map(|item| *item as i64).collect::<Vec<_>>();
         let attention_mask = encoding.get_attention_mask().iter().map(|item| *item as i64).collect::<Vec<_>>();
@@ -69,27 +70,24 @@ impl Semantic {
 
         let input_ids = ndarray::CowArray::from(&input_ids)
             .into_shape((1, sequence_length))
-            .unwrap()
+            .map_err(|_| SemanticError::ShapeError)?
             .into_dyn();
+
         let input_ids = ndarray::CowArray::from(&input_ids)
             .into_shape((1, sequence_length))
-            .unwrap()
+            .map_err(|_| SemanticError::ShapeError)?
             .into_dyn();
         let input_ids = ort::Value::from_array(None, &input_ids).unwrap();
 
-        println!("input_ids: {:?}", input_ids);
-
         let attention_mask = ndarray::CowArray::from(&attention_mask)
             .into_shape((1, sequence_length))
-            .unwrap()
+            .map_err(|_| SemanticError::ShapeError)?
             .into_dyn();
         let attention_mask = ort::Value::from_array(None, &attention_mask).unwrap();
 
-        println!("attention_mask: {:?}", attention_mask);
-
         let token_type_ids = ndarray::CowArray::from(&token_type_ids)
             .into_shape((1, sequence_length))
-            .unwrap()
+            .map_err(|_| SemanticError::ShapeError)?
             .into_dyn();
         let token_type_ids = ort::Value::from_array(None, &token_type_ids).unwrap();
 
@@ -104,5 +102,22 @@ impl Semantic {
         let pooled = sequence_embedding.mean_axis(Axis(1)).unwrap();
 
         Ok(Embedding(pooled.to_owned().as_slice().unwrap().to_vec()))
+    }
+}
+
+type Result<T, E = SemanticError> = std::result::Result<T, E>;
+
+#[derive(Debug, thiserror::Error)]
+pub enum SemanticError {
+    TokenizeEncodeError,
+    ShapeError,
+}
+
+impl Display for SemanticError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        match self {
+            SemanticError::TokenizeEncodeError => write!(f, "TokenizeEncodeError"),
+            SemanticError::ShapeError => write!(f, "ShapeError"),
+        }
     }
 }

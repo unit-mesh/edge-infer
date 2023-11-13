@@ -2,7 +2,7 @@ pub use semantic::Semantic;
 
 use crate::UniffiCustomTypeConverter;
 
-mod semantic;
+pub(crate) mod semantic;
 
 // uniffi::custom_newtype!(Embedding, Vec<f32>);
 

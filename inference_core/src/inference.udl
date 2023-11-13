@@ -18,3 +18,14 @@ interface Document {
     [Name=from_with_metadata]
     constructor(string string_value, Metadata metadata);
 };
+
+[Error]
+enum SemanticError {
+  "TokenizeEncodeError",
+  "ShapeError",
+};
+
+interface Semantic {
+    [Throws=SemanticError]
+    Embedding embed([ByRef] string sequence);
+};
