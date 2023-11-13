@@ -35,6 +35,7 @@ Platform:
 
 ToSpike
 
+- ESP32: [esp-rs](https://github.com/esp-rs)
 - Raspberry Pi Classic
 
 Not working:
