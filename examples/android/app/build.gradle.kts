@@ -1,6 +1,16 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("org.mozilla.rust-android-gradle.rust-android") version "0.9.3" apply true
+}
+
+cargo {
+    prebuiltToolchains = true
+    targetDirectory = "$projectDir/../../../../target" // because of workspace
+    module = "$projectDir/../../../inference_core"     // Or whatever directory contains your Cargo.toml
+    libname = "inference_core"                         // Or whatever matches Cargo.toml's [package] name.
+    profile = "release"
+    targets = listOf("arm", "arm64", "x86", "x86_64")
 }
 
 android {

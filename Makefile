@@ -1,8 +1,7 @@
 TARGET_DIR :=  target
 
 android:
-	@make bindgen-kotlin
-	cd examples/android && ./gradlew cargoBuild --info
+	cd examples/android && ./gradlew cargoBuild
 
 # refs to https://mozilla.github.io/uniffi-rs/tutorial/foreign_language_bindings.html
 bindgen-kotlin:
