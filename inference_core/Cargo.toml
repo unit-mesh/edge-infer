@@ -11,9 +11,14 @@ ort = { git = "https://github.com/pykeio/ort.git", rev = "9a631f1" }
 tokenizers = { version = "0.14.1", default-features = false, features = ["progressbar", "cli", "onig", "esaxx_fast"] }
 ndarray = "0.15.6"
 
-uniffi = { version = "0.25" }
+uniffi = { version = "0.25", features = ["cli"] }
 uuid = { version = "1.5.0", features = ["v4"] }
 thiserror = "1.0.50"
+
+[[bin]]
+# This can be whatever name makes sense for your project, but the rest of this tutorial assumes uniffi-bindgen.
+name = "uniffi-bindgen"
+path = "uniffi-bindgen.rs"
 
 [lib]
 crate-type = ["lib", "cdylib"]
