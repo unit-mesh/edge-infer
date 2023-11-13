@@ -1,10 +1,11 @@
+use std::mem::ManuallyDrop;
 use std::pin::Pin;
 use std::sync::Arc;
-use anyhow::anyhow;
-use ndarray::{Axis};
-use std::mem::ManuallyDrop;
 
+use anyhow::anyhow;
+use ndarray::Axis;
 use ort::{Environment, ExecutionProvider, GraphOptimizationLevel, LoggingLevel, SessionBuilder};
+
 use crate::embedding::Embedding;
 
 pub struct Semantic {

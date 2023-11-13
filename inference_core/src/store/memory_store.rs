@@ -1,10 +1,7 @@
 use std::collections::BinaryHeap;
 
-use crate::cosine_similarity::CosineSimilarity;
 use crate::embedding::Embedding;
-use crate::embedding_match::EmbeddingMatch;
-use crate::relevance_score::RelevanceScore;
-
+use crate::similarity::{CosineSimilarity, EmbeddingMatch, RelevanceScore};
 
 #[derive(Clone)]
 struct Entry<Embedded: Clone + Ord> {

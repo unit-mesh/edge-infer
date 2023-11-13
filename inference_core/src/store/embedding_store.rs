@@ -1,7 +1,7 @@
 use crate::embedding::Embedding;
-use crate::embedding_match::EmbeddingMatch;
+use crate::similarity::EmbeddingMatch;
 
-trait EmbeddingStore<Embedded: Clone + Ord> {
+pub trait EmbeddingStore<Embedded: Clone + Ord> {
     // Adds an embedding to the store and returns its unique identifier.
     fn add(&mut self, embedding: Embedding) -> String;
 
