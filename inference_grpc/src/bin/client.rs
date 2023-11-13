@@ -1,5 +1,4 @@
 use std::io::{Cursor, Read};
-use std::thread::yield_now;
 
 use async_stream::stream;
 use tokenizer::tokenizer_client::TokenizerClient;

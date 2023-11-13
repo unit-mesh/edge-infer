@@ -7,7 +7,7 @@ use tonic::codegen::tokio_stream::StreamExt;
 use tokenizer::tokenizer_server::{Tokenizer, TokenizerServer};
 use tokenizer::{EncodeRequest, EncodeReply, GeneralResponse, Model, TokenizerJson};
 
-use inference_core::embed::Semantic;
+use inference_core::embedding::Semantic;
 use inference_grpc::inference_args::InferenceArgs;
 
 pub mod tokenizer {
