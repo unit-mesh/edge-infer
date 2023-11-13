@@ -5,6 +5,7 @@ pub mod store;
 
 // make the following types available in the generated bindings
 pub use document::Document;
+pub use document::Metadata;
 pub use embedding::Embedding;
 pub use embedding::Semantic;
 

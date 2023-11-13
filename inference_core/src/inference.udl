@@ -7,3 +7,14 @@ namespace inference { };
 interface Similarity {
     float similarity_score([ByRef] Embedding set1, [ByRef] Embedding set2);
 };
+
+dictionary Metadata {
+    record<string, string> metadata;
+};
+
+interface Document {
+    [Name=from]
+    constructor(string string_value);
+    [Name=from_with_metadata]
+    constructor(string string_value, Metadata metadata);
+};

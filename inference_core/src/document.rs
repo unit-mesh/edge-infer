@@ -10,7 +10,7 @@ pub struct Document {
 }
 
 pub struct Metadata {
-    metadata: HashMap<String, String>,
+    pub metadata: HashMap<String, String>,
 }
 
 impl Metadata {
@@ -23,7 +23,7 @@ impl Metadata {
 
 
 impl Document {
-    fn from(string_value: String) -> Self {
+    pub fn from(string_value: String) -> Self {
         Self {
             id: "".to_string(),
             metadata: Metadata::new(),
@@ -32,7 +32,7 @@ impl Document {
         }
     }
 
-    fn from_with_metadata(string_value: String, metadata: Metadata) -> Self {
+    pub fn from_with_metadata(string_value: String, metadata: Metadata) -> Self {
         Self {
             id: "".to_string(),
             metadata,
