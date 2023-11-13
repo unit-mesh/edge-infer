@@ -15,7 +15,7 @@ uniffi = { version = "0.25" }
 
 [lib]
 crate-type = ["lib", "cdylib"]
-name = "inference"
+name = "inference_core"
 
 [build-dependencies]
 uniffi = { version = "0.25", features = ["build"] }
