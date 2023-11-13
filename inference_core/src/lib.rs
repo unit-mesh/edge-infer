@@ -3,10 +3,10 @@ pub mod memory_store;
 pub mod document;
 pub mod embedding;
 pub mod embedding_store;
-mod embedding_match;
-mod similarity;
-mod relevance_score;
-mod cosine_similarity;
+pub mod embedding_match;
+pub mod similarity;
+pub mod relevance_score;
+pub mod cosine_similarity;
 
 fn hello_name(name: String) -> String {
     format!("Hello {}", name)
