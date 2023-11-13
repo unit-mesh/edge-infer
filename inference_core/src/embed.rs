@@ -5,6 +5,7 @@ use ndarray::{Axis};
 use std::mem::ManuallyDrop;
 
 use ort::{Environment, ExecutionProvider, GraphOptimizationLevel, LoggingLevel, SessionBuilder};
+use crate::embedding::Embedding;
 
 pub struct Semantic {
     model_ref: &'static [u8],
@@ -20,8 +21,6 @@ impl Drop for Semantic {
         }
     }
 }
-
-pub type Embedding = Vec<f32>;
 
 impl Semantic {
     pub async fn initialize(model: Vec<u8>, tokenizer_data: Vec<u8>) -> Result<Pin<Box<Semantic>>, anyhow::Error> {
