@@ -37,12 +37,14 @@ ToSpike
 
 - ESP32: [esp-rs](https://github.com/esp-rs)
 - Raspberry Pi Classic
+  - [built-onnxruntime-for-raspberrypi-linux](https://github.com/nknytk/built-onnxruntime-for-raspberrypi-linux)
+  - [ONNX Runtime IoT Deployment on Raspberry Pi](https://onnxruntime.ai/docs/tutorials/iot-edge/rasp-pi-cv.html)
 
 Not working:
 
 - Arduino M0 Pro, Flash: 256 KB, SRAM: 32Kb
     - Official: [Arduino M0 Pro](https://docs.arduino.cc/retired/boards/arduino-m0-pro)
-    - Rust's [cortex-m-quickstart](https://github.com/rust-embedded/cortex-m-quickstart)]
+    - Rust's [cortex-m-quickstart](https://github.com/rust-embedded/cortex-m-quickstart)
 - Raspberry Pi Zero W, Flash: 512 MB, SRAM: 512 MB
   - Official: [Raspberry Pi Zero W](https://www.raspberrypi.com/products/raspberry-pi-zero/)
   - [Using Rust to Control a Raspberry Pi Zero W Rover](https://disconnected.systems/blog/rust-powered-rover/)
