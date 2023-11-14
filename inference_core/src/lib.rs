@@ -9,6 +9,7 @@ pub use document::Metadata;
 pub use embedding::Embedding;
 pub use embedding::Semantic;
 pub use embedding::semantic::SemanticError;
+// pub use embedding::semantic::init_semantic;
 
 pub use similarity::EmbeddingMatch;
 pub use similarity::CosineSimilarity;

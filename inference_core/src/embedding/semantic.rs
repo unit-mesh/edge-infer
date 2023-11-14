@@ -3,7 +3,6 @@ use std::mem::ManuallyDrop;
 use std::pin::Pin;
 use std::sync::Arc;
 
-use anyhow::anyhow;
 use ndarray::Axis;
 use ort::{Environment, ExecutionProvider, GraphOptimizationLevel, LoggingLevel, SessionBuilder};
 
@@ -24,13 +23,13 @@ impl Drop for Semantic {
 }
 
 impl Semantic {
-    pub async fn initialize(model: Vec<u8>, tokenizer_data: Vec<u8>) -> Result<Pin<Box<Semantic>>, anyhow::Error> {
+    pub async fn initialize(model: Vec<u8>, tokenizer_data: Vec<u8>) -> Result<Pin<Box<Semantic>>, SemanticError> {
         let environment = Arc::new(
             Environment::builder()
                 .with_name("Encode")
                 .with_log_level(LoggingLevel::Warning)
                 .with_execution_providers([ExecutionProvider::CPU(Default::default())])
-                .build()?,
+                .build().map_err(|e| SemanticError::InitBuildOrtEnv)?,
         );
 
         let threads = if let Ok(v) = std::env::var("NUM_OMP_THREADS") {
@@ -39,16 +38,17 @@ impl Semantic {
             1
         };
 
-        let tokenizer: Arc<tokenizers::Tokenizer> = tokenizers::Tokenizer::from_bytes(tokenizer_data).map_err(|e| anyhow!("tok frombytes error: {}", e))?.into();
+        let tokenizer: Arc<tokenizers::Tokenizer> = tokenizers::Tokenizer::from_bytes(tokenizer_data)
+            .map_err(|e| SemanticError::TokenizeEncodeByteError)?.into();
 
         let model_ref = model.leak();
 
         let semantic = Self {
             model_ref,
             tokenizer,
-            session: SessionBuilder::new(&environment)?
-                .with_optimization_level(GraphOptimizationLevel::Level3)?
-                .with_intra_threads(threads)?
+            session: SessionBuilder::new(&environment).map_err(|e| SemanticError::InitSessionBuilder)?
+                .with_optimization_level(GraphOptimizationLevel::Level3).map_err(|e| SemanticError::InitSessionOptimization)?
+                .with_intra_threads(threads).map_err(|e| SemanticError::InitSessionThreads)?
                 .with_model_from_memory(model_ref)
                 .unwrap()
                 .into(),
@@ -110,7 +110,12 @@ type Result<T, E = SemanticError> = std::result::Result<T, E>;
 #[derive(Debug, thiserror::Error)]
 pub enum SemanticError {
     TokenizeEncodeError,
+    TokenizeEncodeByteError,
     ShapeError,
+    InitSessionBuilder,
+    InitSessionOptimization,
+    InitBuildOrtEnv,
+    InitSessionThreads
 }
 
 impl Display for SemanticError {
@@ -118,6 +123,11 @@ impl Display for SemanticError {
         match self {
             SemanticError::TokenizeEncodeError => write!(f, "TokenizeEncodeError"),
             SemanticError::ShapeError => write!(f, "ShapeError"),
+            SemanticError::TokenizeEncodeByteError => write!(f, "TokenizeEncodeByteError"),
+            SemanticError::InitSessionBuilder => write!(f, "InitSessionBuilder"),
+            SemanticError::InitSessionOptimization => write!(f, "InitSessionOptimization"),
+            SemanticError::InitSessionThreads => write!(f, "InitSessionThreads"),
+            SemanticError::InitBuildOrtEnv => write!(f, "InitBuildOrtEnv"),
         }
     }
 }

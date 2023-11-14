@@ -22,7 +22,12 @@ interface Document {
 [Error]
 enum SemanticError {
   "TokenizeEncodeError",
+  "TokenizeEncodeByteError",
   "ShapeError",
+  "InitSessionBuilder",
+  "InitSessionOptimization",
+  "InitBuildOrtEnv",
+  "InitSessionThreads"
 };
 
 interface Semantic {
