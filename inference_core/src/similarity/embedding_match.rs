@@ -10,7 +10,7 @@ pub struct EmbeddingMatch<Embedded: Clone + Ord> {
 }
 
 impl<Embedded: Clone + Ord> EmbeddingMatch<Embedded> {
-    pub(crate) fn new(score: f32, embedding_id: String, embedding: Embedding, embedded: Embedded) -> Self {
+    pub fn new(score: f32, embedding_id: String, embedding: Embedding, embedded: Embedded) -> Self {
         EmbeddingMatch {
             score,
             embedding_id,

@@ -1,65 +1,67 @@
 use std::collections::BinaryHeap;
+use crate::{Document, DocumentMatch};
 
 use crate::embedding::Embedding;
-use crate::similarity::{CosineSimilarity, EmbeddingMatch, RelevanceScore};
+use crate::similarity::{CosineSimilarity, RelevanceScore};
 
-#[derive(Clone)]
-struct Entry<Embedded: Clone + Ord> {
+#[derive(Debug, Clone)]
+pub struct Entry {
     id: String,
     embedding: Embedding,
-    embedded: Option<Embedded>,
+    embedded: Option<Document>,
 }
 
-impl<Embedded: Clone + Ord> Entry<Embedded> {
-    fn new(id: String, embedding: Embedding, embedded: Option<Embedded>) -> Self {
+impl Entry {
+    fn new(id: String, embedding: Embedding, embedded: Option<Document>) -> Self {
         Entry { id, embedding, embedded }
     }
 }
 
-pub struct InMemoryEmbeddingStore<Embedded: Clone + Ord> {
-    entries: Vec<Entry<Embedded>>,
+pub struct InMemoryEmbeddingStore {
+    entries: Vec<Entry>,
 }
 
-// Implement methods for InMemoryEmbeddingStore
-impl<Embedded: Clone + Ord> InMemoryEmbeddingStore<Embedded> {
-    fn new() -> Self {
+impl InMemoryEmbeddingStore {
+    pub fn new() -> Self {
         InMemoryEmbeddingStore { entries: Vec::new() }
     }
 
-    fn add(&mut self, embedding: Embedding) -> String {
+    pub fn add(&mut self, embedding: Embedding) -> String {
         let id = uuid::Uuid::new_v4().to_string();
         self.add_with_id(id.clone(), embedding);
         id
     }
 
-    fn add_with_id(&mut self, id: String, embedding: Embedding) {
-        self.add_with_embedded(id, embedding, None);
-    }
-
-    fn add_with_embedded(&mut self, id: String, embedding: Embedding, embedded: Option<Embedded>) -> String {
-        let entry = Entry::new(id.clone(), embedding, embedded);
+    pub fn add_with_id(&mut self, id: String, embedding: Embedding) -> String {
+        let entry = Entry::new(id.clone(), embedding, None);
         self.entries.push(entry);
         id
     }
 
-    fn add_all(&mut self, embeddings: Vec<Embedding>) -> Vec<String> {
+    pub fn add_with_embedded(&mut self, id: String, embedding: Embedding, embedded: Document) -> String {
+        let entry = Entry::new(id.clone(), embedding, Some(embedded));
+        self.entries.push(entry);
+        id
+    }
+
+    pub fn add_all(&mut self, embeddings: Vec<Embedding>) -> Vec<String> {
         embeddings
             .into_iter()
             .map(|embedding| self.add(embedding))
             .collect()
     }
 
-    fn add_all_with_embedded(&mut self, embeddings: Vec<Embedding>, embedded: Vec<Embedded>) -> Vec<String> {
+    pub fn add_all_with_embedded(&mut self, embeddings: Vec<Embedding>, embedded: Vec<Document>) -> Vec<String> {
         assert_eq!(embeddings.len(), embedded.len(), "The list of embeddings and embedded must have the same size");
 
         embeddings
             .into_iter()
             .zip(embedded)
-            .map(|(embedding, embedded)| self.add_with_embedded(uuid::Uuid::new_v4().to_string(), embedding, Some(embedded)))
+            .map(|(embedding, embedded)| self.add_with_embedded(uuid::Uuid::new_v4().to_string(), embedding, embedded))
             .collect()
     }
 
-    fn find_relevant(&self, reference_embedding: Embedding, max_results: usize, min_score: f32) -> Vec<EmbeddingMatch<Embedded>> {
+    pub fn find_relevant(&self, reference_embedding: Embedding, max_results: usize, min_score: f32) -> Vec<DocumentMatch> {
         let mut matches = BinaryHeap::new();
 
         for entry in &self.entries {
@@ -67,7 +69,7 @@ impl<Embedded: Clone + Ord> InMemoryEmbeddingStore<Embedded> {
             let score = RelevanceScore::from_cosine_similarity(cosine_similarity);
 
             if score >= min_score {
-                matches.push(EmbeddingMatch::new(score, entry.id.clone(), entry.embedding.clone(), entry.embedded.clone().unwrap()));
+                matches.push(DocumentMatch::new(score, entry.id.clone(), entry.embedding.clone(), entry.embedded.clone().unwrap()));
 
                 if matches.len() > max_results {
                     matches.pop();

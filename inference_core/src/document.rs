@@ -2,13 +2,15 @@ use std::collections::HashMap;
 
 use crate::embedding::Embedding;
 
+#[derive(Debug, Clone)]
 pub struct Document {
-    id: String,
-    metadata: Metadata,
-    text: String,
-    vector: Embedding,
+    pub id: String,
+    pub metadata: Metadata,
+    pub text: String,
+    pub vector: Embedding,
 }
 
+#[derive(Debug, Clone)]
 pub struct Metadata {
     pub metadata: HashMap<String, String>,
 }

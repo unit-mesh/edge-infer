@@ -13,6 +13,7 @@ pub use embedding::semantic::SemanticError;
 pub use embedding::semantic::init_semantic;
 
 pub use similarity::EmbeddingMatch;
+pub use similarity::DocumentMatch;
 pub use similarity::CosineSimilarity;
 pub use similarity::Similarity;
 pub use similarity::RelevanceScore;
@@ -22,6 +23,10 @@ pub use store::InMemoryEmbeddingStore;
 
 pub fn get_cosine_similarity() -> Arc<dyn Similarity> {
     Arc::new(CosineSimilarity {})
+}
+
+pub fn get_in_memory_embedding_store() -> Arc<InMemoryEmbeddingStore> {
+    Arc::new(InMemoryEmbeddingStore::new())
 }
 
 uniffi::include_scaffolding!("inference");

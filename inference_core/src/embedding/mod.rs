@@ -4,8 +4,6 @@ use crate::UniffiCustomTypeConverter;
 
 pub(crate) mod semantic;
 
-// uniffi::custom_newtype!(Embedding, Vec<f32>);
-
 #[derive(Debug, Clone)]
 pub struct Embedding(pub Vec<f32>);
 
