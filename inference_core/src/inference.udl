@@ -30,7 +30,9 @@ enum SemanticError {
   "InitSessionBuilder",
   "InitSessionOptimization",
   "InitBuildOrtEnv",
-  "InitSessionThreads"
+  "InitSessionThreads",
+  "InitModelReadError",
+  "InitTokenizerReadError"
 };
 
 interface Semantic {

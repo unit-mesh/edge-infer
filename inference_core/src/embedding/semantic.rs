@@ -27,6 +27,14 @@ pub fn init_semantic(model: Vec<u8>, tokenizer_data: Vec<u8>) -> Result<Arc<Sema
     Ok(Arc::new(result))
 }
 
+pub fn init_semantic_with_path(model_path: &str, tokenizer_path: &str) -> Result<Arc<Semantic>, SemanticError> {
+    let model = std::fs::read(model_path).map_err(|_| SemanticError::InitModelReadError)?;
+    let tokenizer_data = std::fs::read(tokenizer_path).map_err(|_| SemanticError::InitTokenizerReadError)?;
+
+    let result = Semantic::init_semantic(model, tokenizer_data)?;
+    Ok(Arc::new(result))
+}
+
 impl Semantic {
     pub async fn initialize(model: Vec<u8>, tokenizer_data: Vec<u8>) -> Result<Pin<Box<Semantic>>, SemanticError> {
         let semantic = Self::init_semantic(model, tokenizer_data)?;
@@ -125,7 +133,9 @@ pub enum SemanticError {
     InitSessionBuilder,
     InitSessionOptimization,
     InitBuildOrtEnv,
-    InitSessionThreads
+    InitSessionThreads,
+    InitModelReadError,
+    InitTokenizerReadError
 }
 
 impl Display for SemanticError {
@@ -138,6 +148,8 @@ impl Display for SemanticError {
             SemanticError::InitSessionOptimization => write!(f, "InitSessionOptimization"),
             SemanticError::InitSessionThreads => write!(f, "InitSessionThreads"),
             SemanticError::InitBuildOrtEnv => write!(f, "InitBuildOrtEnv"),
+            SemanticError::InitModelReadError => write!(f, "InitModelReadError"),
+            SemanticError::InitTokenizerReadError => write!(f, "InitTokenizerReadError"),
         }
     }
 }
