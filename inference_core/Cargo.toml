@@ -4,8 +4,6 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-anyhow = "1.0.75"
-
 # follow https://github.com/pykeio/ort/issues/97
 ort = { git = "https://github.com/pykeio/ort.git", rev = "9a631f1" }
 tokenizers = { version = "0.14.1", default-features = false, features = ["progressbar", "cli", "onig", "esaxx_fast"] }
