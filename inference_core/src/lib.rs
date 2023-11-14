@@ -25,8 +25,4 @@ pub fn get_cosine_similarity() -> Arc<dyn Similarity> {
     Arc::new(CosineSimilarity {})
 }
 
-pub fn get_in_memory_embedding_store() -> Arc<InMemoryEmbeddingStore> {
-    Arc::new(InMemoryEmbeddingStore::new())
-}
-
 uniffi::include_scaffolding!("inference");

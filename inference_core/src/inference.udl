@@ -16,11 +16,11 @@ dictionary Metadata {
     record<string, string> metadata;
 };
 
-interface Document {
-    [Name=from]
-    constructor(string string_value);
-    [Name=from_with_metadata]
-    constructor(string string_value, Metadata metadata);
+dictionary Document {
+    string id;
+    Metadata metadata;
+    string text;
+    Embedding vector;
 };
 
 [Error]
@@ -40,3 +40,13 @@ interface Semantic {
     [Throws=SemanticError]
     Embedding embed([ByRef] string sequence);
 };
+
+interface InMemoryEmbeddingStore {
+    [Name=new]
+    constructor();
+
+    string add(string id, Embedding embedding, Document document);
+    sequence<string> add_all(sequence<Embedding> embeddings, sequence<Document> documents);
+
+};
+
