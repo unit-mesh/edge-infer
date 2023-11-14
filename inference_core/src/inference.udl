@@ -41,12 +41,19 @@ interface Semantic {
     Embedding embed([ByRef] string sequence);
 };
 
+
+dictionary DocumentMatch {
+    float score;
+    string embedding_id;
+    Embedding embedding;
+    Document embedded;
+};
+
 interface InMemoryEmbeddingStore {
     [Name=new]
     constructor();
 
     string add(string id, Embedding embedding, Document document);
     sequence<string> add_all(sequence<Embedding> embeddings, sequence<Document> documents);
-
 };
 
