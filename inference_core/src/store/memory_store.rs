@@ -44,7 +44,7 @@ impl InMemoryEmbeddingStore {
             .collect()
     }
 
-    pub fn find_relevant(&self, reference_embedding: Embedding, max_results: usize, min_score: f32) -> Vec<DocumentMatch> {
+    pub fn find_relevant(&self, reference_embedding: Embedding, max_results: i8, min_score: f32) -> Vec<DocumentMatch> {
         let mut matches = BinaryHeap::new();
 
         for entry in self.entries.lock().unwrap().iter() {
@@ -54,7 +54,7 @@ impl InMemoryEmbeddingStore {
             if score >= min_score {
                 matches.push(DocumentMatch::new(score, entry.id.clone(), entry.embedding.clone(), entry.embedded.clone()));
 
-                if matches.len() > max_results {
+                if matches.len() > max_results as usize {
                     matches.pop();
                 }
             }

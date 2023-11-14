@@ -41,7 +41,6 @@ interface Semantic {
     Embedding embed([ByRef] string sequence);
 };
 
-
 dictionary DocumentMatch {
     float score;
     string embedding_id;
@@ -55,5 +54,6 @@ interface InMemoryEmbeddingStore {
 
     string add(string id, Embedding embedding, Document document);
     sequence<string> add_all(sequence<Embedding> embeddings, sequence<Document> documents);
+    sequence<DocumentMatch> find_relevant(Embedding reference_embedding, i8 max_results, float min_score);
 };
 
