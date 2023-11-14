@@ -1,4 +1,7 @@
-namespace inference { };
+namespace inference {
+    [Throws=SemanticError]
+    Semantic init_semantic(sequence<u8> model, sequence<u8> tokenizer_data);
+};
 
 [Custom]
 typedef sequence<f32> Embedding;

@@ -22,8 +22,19 @@ impl Drop for Semantic {
     }
 }
 
+pub fn init_semantic(model: Vec<u8>, tokenizer_data: Vec<u8>) -> Result<Arc<Semantic>, SemanticError> {
+    let result = Semantic::init_semantic(model, tokenizer_data)?;
+    Ok(Arc::new(result))
+}
+
 impl Semantic {
     pub async fn initialize(model: Vec<u8>, tokenizer_data: Vec<u8>) -> Result<Pin<Box<Semantic>>, SemanticError> {
+        let semantic = Self::init_semantic(model, tokenizer_data)?;
+
+        Ok(Box::pin(semantic))
+    }
+
+    pub fn init_semantic(model: Vec<u8>, tokenizer_data: Vec<u8>) -> Result<Semantic, SemanticError> {
         let environment = Arc::new(
             Environment::builder()
                 .with_name("Encode")
@@ -53,8 +64,7 @@ impl Semantic {
                 .unwrap()
                 .into(),
         };
-
-        Ok(Box::pin(semantic))
+        Ok(semantic)
     }
 
     pub fn embed(&self, sequence: &str) -> Result<Embedding, SemanticError> {
