@@ -3,6 +3,7 @@ pub mod embedding;
 pub mod similarity;
 pub mod store;
 
+use std::sync::Arc;
 // make the following types available in the generated bindings
 pub use document::Document;
 pub use document::Metadata;
@@ -19,5 +20,8 @@ pub use similarity::RelevanceScore;
 pub use store::EmbeddingStore;
 pub use store::InMemoryEmbeddingStore;
 
+pub fn get_cosine_similarity() -> Arc<dyn Similarity> {
+    Arc::new(CosineSimilarity {})
+}
 
 uniffi::include_scaffolding!("inference");
