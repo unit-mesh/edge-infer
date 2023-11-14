@@ -40,4 +40,3 @@ interface Semantic {
     [Throws=SemanticError]
     Embedding embed([ByRef] string sequence);
 };
-

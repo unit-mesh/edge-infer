@@ -8,11 +8,11 @@ use crate::similarity::{CosineSimilarity, RelevanceScore};
 pub struct Entry {
     id: String,
     embedding: Embedding,
-    embedded: Option<Document>,
+    embedded: Document,
 }
 
 impl Entry {
-    fn new(id: String, embedding: Embedding, embedded: Option<Document>) -> Self {
+    fn new(id: String, embedding: Embedding, embedded: Document) -> Self {
         Entry { id, embedding, embedded }
     }
 }
@@ -26,38 +26,19 @@ impl InMemoryEmbeddingStore {
         InMemoryEmbeddingStore { entries: Vec::new() }
     }
 
-    pub fn add(&mut self, embedding: Embedding) -> String {
-        let id = uuid::Uuid::new_v4().to_string();
-        self.add_with_id(id.clone(), embedding);
-        id
-    }
-
-    pub fn add_with_id(&mut self, id: String, embedding: Embedding) -> String {
-        let entry = Entry::new(id.clone(), embedding, None);
+    pub fn add(&mut self, id: String, embedding: Embedding, document: Document) -> String {
+        let entry = Entry::new(id.clone(), embedding, document);
         self.entries.push(entry);
         id
     }
 
-    pub fn add_with_embedded(&mut self, id: String, embedding: Embedding, embedded: Document) -> String {
-        let entry = Entry::new(id.clone(), embedding, Some(embedded));
-        self.entries.push(entry);
-        id
-    }
-
-    pub fn add_all(&mut self, embeddings: Vec<Embedding>) -> Vec<String> {
-        embeddings
-            .into_iter()
-            .map(|embedding| self.add(embedding))
-            .collect()
-    }
-
-    pub fn add_all_with_embedded(&mut self, embeddings: Vec<Embedding>, embedded: Vec<Document>) -> Vec<String> {
+    pub fn add_all(&mut self, embeddings: Vec<Embedding>, embedded: Vec<Document>) -> Vec<String> {
         assert_eq!(embeddings.len(), embedded.len(), "The list of embeddings and embedded must have the same size");
 
         embeddings
             .into_iter()
             .zip(embedded)
-            .map(|(embedding, embedded)| self.add_with_embedded(uuid::Uuid::new_v4().to_string(), embedding, embedded))
+            .map(|(embedding, embedded)| self.add(uuid::Uuid::new_v4().to_string(), embedding, embedded))
             .collect()
     }
 
@@ -69,7 +50,7 @@ impl InMemoryEmbeddingStore {
             let score = RelevanceScore::from_cosine_similarity(cosine_similarity);
 
             if score >= min_score {
-                matches.push(DocumentMatch::new(score, entry.id.clone(), entry.embedding.clone(), entry.embedded.clone().unwrap()));
+                matches.push(DocumentMatch::new(score, entry.id.clone(), entry.embedding.clone(), entry.embedded.clone()));
 
                 if matches.len() > max_results {
                     matches.pop();
