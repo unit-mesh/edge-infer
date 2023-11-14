@@ -21,7 +21,7 @@ name = "uniffi-bindgen"
 path = "uniffi-bindgen.rs"
 
 [lib]
-crate-type = ["lib", "cdylib"]
+crate-type = ["lib", "cdylib", "staticlib"]
 name = "inference_core"
 
 [build-dependencies]
