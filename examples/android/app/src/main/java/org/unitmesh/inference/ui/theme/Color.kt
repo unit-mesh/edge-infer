@@ -1,4 +1,4 @@
-package com.unitmesh.inference.ui.theme
+package org.unitmesh.inference.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

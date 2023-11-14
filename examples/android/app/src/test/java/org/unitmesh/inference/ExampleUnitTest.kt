@@ -1,4 +1,4 @@
-package com.unitmesh.inference
+package org.unitmesh.inference
 
 import org.junit.Test
 
