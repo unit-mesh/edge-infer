@@ -18,7 +18,8 @@ Platform:
 - [ ] GRPC server with [tonic](https://github.com/hyperium/tonic)
 - [x] Onnx Runtime
 - [x] Tokenizer
-- [ ] [UniFFI](https://github.com/mozilla/uniffi-rs), is a toolkit for building cross-platform software components in Rust.
+- [ ] [UniFFI](https://github.com/mozilla/uniffi-rs), is a toolkit for building cross-platform software components in
+  Rust.
 - [ ] Multiple OS support: Windows, Mac, Android, iOS, Linux Desktop (x86, x64), Embedded Linux (ARM).
 - [ ] Flexible Configuration: Easily configurable via command-line parameters, including listening port, batch size,
   thread count, and others.
@@ -26,7 +27,13 @@ Platform:
 ## Usecases
 
 - [ ] SearchEverywhere: Search for anything, anywhere, anytime.
+    - Model: Embedding,
+      like [Sentence-Transformers MiniLM](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)
+    - Extra: Local Indexing
+- [ ] Visualization
+    - Model: [Ultralytics YOLOv9](https://github.com/ultralytics/ultralytics)
 - [ ] AutoComplete
+    - Model: Embedding with ?? 
 - [ ] Summarization
 
 ## Resources
@@ -37,8 +44,8 @@ ToSpike
 
 - ESP32: [esp-rs](https://github.com/esp-rs)
 - Raspberry Pi Classic
-  - [built-onnxruntime-for-raspberrypi-linux](https://github.com/nknytk/built-onnxruntime-for-raspberrypi-linux)
-  - [ONNX Runtime IoT Deployment on Raspberry Pi](https://onnxruntime.ai/docs/tutorials/iot-edge/rasp-pi-cv.html)
+    - [built-onnxruntime-for-raspberrypi-linux](https://github.com/nknytk/built-onnxruntime-for-raspberrypi-linux)
+    - [ONNX Runtime IoT Deployment on Raspberry Pi](https://onnxruntime.ai/docs/tutorials/iot-edge/rasp-pi-cv.html)
 
 Not working:
 
@@ -46,9 +53,9 @@ Not working:
     - Official: [Arduino M0 Pro](https://docs.arduino.cc/retired/boards/arduino-m0-pro)
     - Rust's [cortex-m-quickstart](https://github.com/rust-embedded/cortex-m-quickstart)
 - Raspberry Pi Zero W, Flash: 512 MB, SRAM: 512 MB
-  - Official: [Raspberry Pi Zero W](https://www.raspberrypi.com/products/raspberry-pi-zero/)
-  - [Using Rust to Control a Raspberry Pi Zero W Rover](https://disconnected.systems/blog/rust-powered-rover/)
-  - Not working reason: See in [inference_rpi](inference_rpi/README.md)
+    - Official: [Raspberry Pi Zero W](https://www.raspberrypi.com/products/raspberry-pi-zero/)
+    - [Using Rust to Control a Raspberry Pi Zero W Rover](https://disconnected.systems/blog/rust-powered-rover/)
+    - Not working reason: See in [inference_rpi](inference_rpi/README.md)
 
 ## License
 
