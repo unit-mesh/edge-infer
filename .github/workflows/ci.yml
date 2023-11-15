@@ -56,13 +56,6 @@ jobs:
       - name: setup build targets
         run: rustup target add aarch64-linux-android
 
-      - name: Build Android Cargo
-        run: ./gradlew cargoBuild
-        env:
-          ANDROID_NDK_HOME: ${{ env.ANDROID_SDK_ROOT }}/ndk/26.1.10909125
-          TOOLCHAIN: ${{ env.ANDROID_SDK_ROOT }}/ndk/26.1.10909125/toolchains/llvm/prebuilt/darwin-x86_64
-          RANLIB: ${{ env.ANDROID_SDK_ROOT }}/ndk/26.1.10909125/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ranlib
-
       - name: Install protoc
         uses: taiki-e/install-action@v2
         with:
@@ -73,6 +66,13 @@ jobs:
 
       - name: Build Android for Testing
         run: cargo build --target aarch64-linux-android
+
+      - name: Build Android Cargo
+        run:  cd examples/android && ./gradlew cargoBuild
+        env:
+          ANDROID_NDK_HOME: ${{ env.ANDROID_SDK_ROOT }}/ndk/26.1.10909125
+          TOOLCHAIN: ${{ env.ANDROID_SDK_ROOT }}/ndk/26.1.10909125/toolchains/llvm/prebuilt/darwin-x86_64
+          RANLIB: ${{ env.ANDROID_SDK_ROOT }}/ndk/26.1.10909125/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ranlib
 
       - name: Build Android Cargo
         run: cd examples/android && ./gradlew cargoBuild
