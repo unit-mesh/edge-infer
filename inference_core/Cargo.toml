@@ -15,6 +15,18 @@ uniffi = { version = "0.25", features = ["cli"] }
 uuid = { version = "1.5.0", features = ["v4"] }
 thiserror = "1.0.50"
 
+# default-features will use ureq -> ring library, which will cause error in macOS for cross-compiling
+# so we disable default-features, following: https://github.com/pykeio/ort/blob/main/Cargo.toml
+# all os: https://doc.rust-lang.org/reference/conditional-compilation.html#target_os
+[target.'cfg(windows)'.dependencies]
+ort = { git = "https://github.com/pykeio/ort.git", rev = "9a631f1", default-features = true }
+
+[target.'cfg(macos)'.dependencies]
+ort = { git = "https://github.com/pykeio/ort.git", rev = "9a631f1", default-features = true }
+
+[target.'cfg(linux)'.dependencies]
+ort = { git = "https://github.com/pykeio/ort.git", rev = "9a631f1", default-features = true }
+
 [[bin]]
 # This can be whatever name makes sense for your project, but the rest of this tutorial assumes uniffi-bindgen.
 name = "uniffi-bindgen"
