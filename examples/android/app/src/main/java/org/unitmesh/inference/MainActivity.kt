@@ -24,8 +24,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         val store = InMemoryEmbeddingStore()
 
-        System.load("onnxruntime")
-
         val tokenizerStream: InputStream = assets.open("model/tokenizer.json")
         val onnxStream: InputStream = assets.open("model/model.onnx")
 

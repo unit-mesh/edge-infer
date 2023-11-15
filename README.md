@@ -2,8 +2,7 @@
 
 [![Rust](https://github.com/unit-mesh/edge-inference/actions/workflows/rust.yml/badge.svg)](https://github.com/unit-mesh/edge-inference/actions/workflows/rust.yml)
 
-EdgeEmbedding is a gRPC-based server tailored for running ONNX models on edge devices, such as Android, iOS, or other
-microcontroller units (MCUs).
+EdgeMind enables efficient edge intelligence by running small AI models, including embeddings and OnnxModels, on resource-constrained devices like Android, iOS, or MCUs for real-time decision-making.
 
 - Onnx Runtime
 
