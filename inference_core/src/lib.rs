@@ -36,3 +36,19 @@ pub fn init_semantic_with_path(model_path: &str, tokenizer_path: &str) -> Result
 }
 
 uniffi::include_scaffolding!("inference");
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_init_semantic() {
+        let model = std::fs::read("../model/model.onnx").unwrap();
+        let tokenizer_data = std::fs::read("../model/tokenizer.json").unwrap();
+
+        let semantic = init_semantic(model, tokenizer_data).unwrap();
+        let embedding = semantic.embed("hello world").unwrap();
+        // the default embedding size is 128
+        assert_eq!(embedding.len(), 128);
+    }
+}

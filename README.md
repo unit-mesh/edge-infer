@@ -1,7 +1,7 @@
 <p align="center">
   <img src="docs/logo.svg" width="160px" height="160px"  alt="logo" />
 </p>
-<h1 align="center">EdgeMind</h1>
+<h1 align="center">Edge Infer</h1>
 <p align="center">
   <a href="(https://github.com/unit-mesh/edge-infer/actions/workflows/rust.yml">
     <img src="https://github.com/unit-mesh/edge-infer/actions/workflows/ci.yml/badge.svg" alt="Build" />
@@ -23,14 +23,15 @@ Platform support (by Design):
 
 ## Todos
 
-- [ ] GRPC server with [tonic](https://github.com/hyperium/tonic)
-- [x] Onnx Runtime
-- [x] Tokenizer
-- [ ] [UniFFI](https://github.com/mozilla/uniffi-rs), is a toolkit for building cross-platform software components in
+- [x] Inference wrapper
+    - [x] Onnx Runtime
+    - [x] Tokenizer
+- [x] [UniFFI](https://github.com/mozilla/uniffi-rs), is a toolkit for building cross-platform software components in
   Rust.
+- [ ] GRPC server with [tonic](https://github.com/hyperium/tonic)
 - [ ] Multiple OS support:
-    - Desktop: Windows, Mac
-    - Mobile: Android, iOS, Linux Desktop (x86, x64)
+    - Desktop: Windows, Mac, Linux (x86, x64)
+    - Mobile: Android, iOS, Linux (ARM)
     - Embedded Linux (ARM).
 - [ ] Flexible Configuration: Easily configurable via command-line parameters, including listening port, batch size,
   thread count, and others.
