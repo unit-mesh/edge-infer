@@ -1,8 +1,8 @@
-# EdgeInference
+# EdgeEmbedding
 
 [![Rust](https://github.com/unit-mesh/edge-inference/actions/workflows/rust.yml/badge.svg)](https://github.com/unit-mesh/edge-inference/actions/workflows/rust.yml)
 
-EdgeInference is a gRPC-based server tailored for running ONNX models on edge devices, such as Android, iOS, or other
+EdgeEmbedding is a gRPC-based server tailored for running ONNX models on edge devices, such as Android, iOS, or other
 microcontroller units (MCUs).
 
 - Onnx Runtime

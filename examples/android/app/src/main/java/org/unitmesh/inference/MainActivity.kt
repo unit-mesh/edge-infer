@@ -1,5 +1,6 @@
 package org.unitmesh.inference
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,12 +14,28 @@ import androidx.compose.ui.tooling.preview.Preview
 import org.unitmesh.bindgen.Document
 import org.unitmesh.bindgen.InMemoryEmbeddingStore
 import org.unitmesh.bindgen.Metadata
+import org.unitmesh.bindgen.initSemantic
 import org.unitmesh.inference.ui.theme.InferenceExampleTheme
+import java.io.InputStream
 
 class MainActivity : ComponentActivity() {
+    @SuppressLint("UnsafeDynamicallyLoadedCode")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val store = InMemoryEmbeddingStore()
+
+        System.load("onnxruntime")
+
+        val tokenizerStream: InputStream = assets.open("model/tokenizer.json")
+        val onnxStream: InputStream = assets.open("model/model.onnx")
+
+        val model: List<UByte> = onnxStream.readBytes().map { it.toUByte() }
+        val tokenizer: List<UByte> = tokenizerStream.readBytes().map { it.toUByte() }
+
+        val semantic = initSemantic(model, tokenizer)
+        val list = semantic.embed("hello")
+        println(list)
+
         val metadata = Metadata(mapOf())
         store.add("hello", listOf(0.1f), Document("", metadata, "", listOf()))
         val findRelevant = store.findRelevant(listOf(0.1f), 1, 0.5f)
