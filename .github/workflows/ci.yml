@@ -65,18 +65,17 @@ jobs:
         run: cargo test --verbose
 
       - name: Build Android for Testing
+        working-directory: inference_core
         run: cargo build --target aarch64-linux-android
 
       - name: Build Android Cargo
-        run:  cd examples/android && ./gradlew cargoBuild
+        working-directory: examples/android
+        run: ./gradlew cargoBuild
         env:
           ANDROID_NDK_HOME: ${{ env.ANDROID_SDK_ROOT }}/ndk/26.1.10909125
           TOOLCHAIN: ${{ env.ANDROID_SDK_ROOT }}/ndk/26.1.10909125/toolchains/llvm/prebuilt/darwin-x86_64
           RANLIB: ${{ env.ANDROID_SDK_ROOT }}/ndk/26.1.10909125/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ranlib
 
-      - name: Build Android Cargo
-        run: cd examples/android && ./gradlew cargoBuild
-        env:
-          ANDROID_NDK_HOME: ${{ env.ANDROID_SDK_ROOT }}/ndk/26.1.10909125
-          TOOLCHAIN: ${{ env.ANDROID_SDK_ROOT }}/ndk/26.1.10909125/toolchains/llvm/prebuilt/darwin-x86_64
-          RANLIB: ${{ env.ANDROID_SDK_ROOT }}/ndk/26.1.10909125/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ranlib
+      - name: Build Android APK
+        working-directory: examples/android
+        run: ./gradlew assembleDebug
