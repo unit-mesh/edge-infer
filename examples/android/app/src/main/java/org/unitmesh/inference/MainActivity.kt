@@ -21,7 +21,8 @@ class MainActivity : ComponentActivity() {
         val store = InMemoryEmbeddingStore()
         val metadata = Metadata(mapOf())
         store.add("hello", listOf(0.1f), Document("", metadata, "", listOf()))
-        store.findRelevant(listOf(0.1f), 1, 0.5f)
+        val findRelevant = store.findRelevant(listOf(0.1f), 1, 0.5f)
+        println(findRelevant)
 
         setContent {
             InferenceExampleTheme {
