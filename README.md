@@ -1,8 +1,14 @@
-# EdgeMind
+<p align="center">
+  <img src="docs/logo.svg" width="160px" height="160px"  alt="logo" />
+</p>
+<h1 align="center">EdgeMind</h1>
+<p align="center">
+  <a href="(https://github.com/unit-mesh/edge-inference/actions/workflows/rust.yml">
+    <img src="https://github.com/unit-mesh/edge-inference/actions/workflows/rust.yml/badge.svg" alt="Build" />
+  </a>
+</p>
 
-[![Rust](https://github.com/unit-mesh/edge-inference/actions/workflows/rust.yml/badge.svg)](https://github.com/unit-mesh/edge-inference/actions/workflows/rust.yml)
-
-EdgeMind enables efficient edge intelligence by running small AI models, including embeddings and OnnxModels, on
+> EdgeMind enables efficient edge intelligence by running small AI models, including embeddings and OnnxModels, on
 resource-constrained devices like Android, iOS, or MCUs for real-time decision-making.
 
 ![EdgeMind Architecture](docs/edge-mind.svg)

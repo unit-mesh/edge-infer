@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="640px" height="640px" viewBox="0 0 640 640" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 62 (91390) - https://sketch.com -->
+    <title>Group 4</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-4">
+            <g id="line-1" transform="translate(286.345811, 0.274772)" fill="#FFFFFF" stroke="#48A178" stroke-width="12">
+                <rect id="Rectangle" x="6" y="39.083779" width="55.3083779" height="559.550802"></rect>
+                <circle id="Oval" cx="33.6541889" cy="33.6541889" r="27.6541889"></circle>
+                <circle id="Oval" cx="33.6541889" cy="605.204991" r="27.6541889"></circle>
+            </g>
+            <g id="line-1" transform="translate(320.000000, 319.704362) rotate(-90.000000) translate(-320.000000, -319.704362) translate(286.345811, 0.274772)" fill="#FFFFFF" stroke="#48A178" stroke-width="12">
+                <rect id="Rectangle" x="6" y="39.083779" width="55.3083779" height="559.550802"></rect>
+                <circle id="Oval" cx="33.6541889" cy="33.6541889" r="27.6541889"></circle>
+                <circle id="Oval" cx="33.6541889" cy="605.204991" r="27.6541889"></circle>
+            </g>
+            <g id="line-1" transform="translate(320.000000, 319.704362) rotate(-45.000000) translate(-320.000000, -319.704362) translate(286.345811, 0.274772)" fill="#FFFFFF" stroke="#48A178" stroke-width="12">
+                <rect id="Rectangle" x="6" y="39.083779" width="55.3083779" height="559.550802"></rect>
+                <circle id="Oval" cx="33.6541889" cy="33.6541889" r="27.6541889"></circle>
+                <circle id="Oval" cx="33.6541889" cy="605.204991" r="27.6541889"></circle>
+            </g>
+            <g id="line-1" transform="translate(320.295638, 319.429590) rotate(-135.000000) translate(-320.295638, -319.429590) translate(286.641449, 0.000000)" fill="#FFFFFF" stroke="#48A178" stroke-width="12">
+                <rect id="Rectangle" x="6" y="39.083779" width="55.3083779" height="559.550802"></rect>
+                <circle id="Oval" cx="33.6541889" cy="33.6541889" r="27.6541889"></circle>
+                <circle id="Oval" cx="33.6541889" cy="605.204991" r="27.6541889"></circle>
+            </g>
+            <g id="Group" transform="translate(164.278075, 163.412027)">
+                <rect id="Rectangle" fill="#48A178" x="0" y="0" width="311.44385" height="311.44385" rx="48"></rect>
+                <rect id="Rectangle" fill="#FFFFFF" x="30.802139" y="30.802139" width="250.980392" height="250.980392" rx="32"></rect>
+                <path d="M261.190731,42.2103387 C270.027792,42.2103387 278.028201,45.79247 283.819141,51.5839144 L51.5839144,283.819141 C45.79247,278.028201 42.2103387,270.027792 42.2103387,261.190731 L42.2103387,74.2103387 C42.2103387,56.5372267 56.5372267,42.2103387 74.2103387,42.2103387 L261.190731,42.2103387 Z" id="Combined-Shape" fill-opacity="0.64" fill="#6B9E78" transform="translate(162.354886, 162.354886) scale(-1, -1) translate(-162.354886, -162.354886) "></path>
+                <rect id="Rectangle" fill="#48A178" x="51.3368984" y="50.1960784" width="209.910873" height="209.910873" rx="24"></rect>
+            </g>
+            <g id="Group-2" transform="translate(26.238859, 367.618801)" stroke="#48A178" stroke-width="12">
+                <circle id="Oval" fill="#FFFFFF" cx="33.6541889" cy="54.1889483" r="27.6541889"></circle>
+                <polyline id="Line" stroke-linecap="square" points="137.468806 2.82885624e-14 53.7610016 2.82885624e-14 34.2245989 21.2527852"></polyline>
+                <polyline id="Line" stroke-linecap="square" points="136.821394 42.2103387 78.6804478 42.2103387 57.0409982 68.4491979"></polyline>
+            </g>
+            <g id="Group-2" transform="translate(544.741533, 411.540369) scale(-1, 1) translate(-544.741533, -411.540369) translate(475.721925, 367.618801)" stroke="#48A178" stroke-width="12">
+                <circle id="Oval" fill="#FFFFFF" cx="33.6541889" cy="54.1889483" r="27.6541889"></circle>
+                <polyline id="Line" stroke-linecap="square" points="137.468806 2.82885624e-14 53.7610016 2.82885624e-14 34.2245989 21.2527852"></polyline>
+                <polyline id="Line" stroke-linecap="square" points="136.821394 42.2103387 78.6804478 42.2103387 57.0409982 68.4491979"></polyline>
+            </g>
+            <g id="Group-2" transform="translate(544.741533, 227.868355) scale(-1, -1) translate(-544.741533, -227.868355) translate(475.721925, 183.946786)" stroke="#48A178" stroke-width="12">
+                <circle id="Oval" fill="#FFFFFF" cx="33.6541889" cy="54.1889483" r="27.6541889"></circle>
+                <polyline id="Line" stroke-linecap="square" points="137.468806 2.82885624e-14 53.7610016 2.82885624e-14 34.2245989 21.2527852"></polyline>
+                <polyline id="Line" stroke-linecap="square" points="136.821394 42.2103387 78.6804478 42.2103387 57.0409982 68.4491979"></polyline>
+            </g>
+            <g id="Group-3" transform="translate(179.846495, 22.854761)" stroke="#48A178" stroke-width="12">
+                <circle id="Oval" fill="#FFFFFF" transform="translate(35.935829, 35.935829) scale(-1, -1) rotate(-88.000000) translate(-35.935829, -35.935829) " cx="35.9358289" cy="35.9358289" r="27.6541889"></circle>
+                <polyline id="Line" stroke-linecap="square" transform="translate(57.434827, 101.582222) scale(-1, -1) rotate(-88.000000) translate(-57.434827, -101.582222) " points="96.1462233 93.3520103 39.0409736 95.3461696 18.7234308 109.812434"></polyline>
+            </g>
+            <g id="Group-3" transform="translate(423.814617, 92.681189) scale(-1, 1) translate(-423.814617, -92.681189) translate(387.878788, 21.950352)" stroke="#48A178" stroke-width="12">
+                <circle id="Oval" fill="#FFFFFF" transform="translate(35.935829, 35.935829) scale(-1, -1) rotate(-88.000000) translate(-35.935829, -35.935829) " cx="35.9358289" cy="35.9358289" r="27.6541889"></circle>
+                <polyline id="Line" stroke-linecap="square" transform="translate(57.434827, 101.582222) scale(-1, -1) rotate(-88.000000) translate(-57.434827, -101.582222) " points="96.1462233 93.3520103 39.0409736 95.3461696 18.7234308 109.812434"></polyline>
+            </g>
+            <g id="Group-3" transform="translate(423.814617, 545.586715) scale(-1, -1) translate(-423.814617, -545.586715) translate(387.878788, 474.855877)" stroke="#48A178" stroke-width="12">
+                <circle id="Oval" fill="#FFFFFF" transform="translate(35.935829, 35.935829) scale(-1, -1) rotate(-88.000000) translate(-35.935829, -35.935829) " cx="35.9358289" cy="35.9358289" r="27.6541889"></circle>
+                <polyline id="Line" stroke-linecap="square" transform="translate(57.434827, 101.582222) scale(-1, -1) rotate(-88.000000) translate(-57.434827, -101.582222) " points="96.1462233 93.3520103 39.0409736 95.3461696 18.7234308 109.812434"></polyline>
+            </g>
+            <g id="Group-3" transform="translate(216.185383, 545.586715) scale(1, -1) translate(-216.185383, -545.586715) translate(180.249554, 474.855877)" stroke="#48A178" stroke-width="12">
+                <circle id="Oval" fill="#FFFFFF" transform="translate(35.935829, 35.935829) scale(-1, -1) rotate(-88.000000) translate(-35.935829, -35.935829) " cx="35.9358289" cy="35.9358289" r="27.6541889"></circle>
+                <polyline id="Line" stroke-linecap="square" transform="translate(57.434827, 101.582222) scale(-1, -1) rotate(-88.000000) translate(-57.434827, -101.582222) " points="96.1462233 93.3520103 39.0409736 95.3461696 18.7234308 109.812434"></polyline>
+            </g>
+            <g id="Group-2" transform="translate(95.258467, 227.868355) scale(1, -1) translate(-95.258467, -227.868355) translate(26.238859, 183.946786)" stroke="#48A178" stroke-width="12">
+                <circle id="Oval" fill="#FFFFFF" cx="33.6541889" cy="54.1889483" r="27.6541889"></circle>
+                <polyline id="Line" stroke-linecap="square" points="137.468806 2.82885624e-14 53.7610016 2.82885624e-14 34.2245989 21.2527852"></polyline>
+                <polyline id="Line" stroke-linecap="square" points="136.821394 42.2103387 78.6804478 42.2103387 57.0409982 68.4491979"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>
