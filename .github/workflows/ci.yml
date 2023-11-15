@@ -42,24 +42,18 @@ jobs:
           cmake-version: 3.10.2.4988404
           ndk-version: 26.1.10909125
 
-      - name: rust toolchain setup
+      - name: Setup protoc
+        uses: taiki-e/install-action@v2
+        with:
+          tool: protoc@${{ env.PROTOC_VERSION }}
+
+      - name: Setup rust toolchain
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
 
-      - name: install cargo ndk
-        uses: actions-rs/cargo@v1
-        with:
-          command: install
-          args: cargo-ndk
-
-      - name: setup build targets
-        run: rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android aarch64-apple-ios x86_64-apple-ios
-
-      - name: Install protoc
-        uses: taiki-e/install-action@v2
-        with:
-          tool: protoc@${{ env.PROTOC_VERSION }}
+      - name: Setup targets
+        run: make prepare-android
 
       - name: Run tests
         run: cargo test --verbose
@@ -71,6 +65,9 @@ jobs:
           ANDROID_NDK_HOME: ${{ env.ANDROID_SDK_ROOT }}/ndk/26.1.10909125
           TOOLCHAIN: ${{ env.ANDROID_SDK_ROOT }}/ndk/26.1.10909125/toolchains/llvm/prebuilt/darwin-x86_64
           RANLIB: ${{ env.ANDROID_SDK_ROOT }}/ndk/26.1.10909125/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ranlib
+
+      - name: Generate Binding for Kotlin
+        run: make bindgen-kotlin
 
       - name: Build Android APK
         working-directory: examples/android

@@ -3,8 +3,8 @@
 </p>
 <h1 align="center">EdgeMind</h1>
 <p align="center">
-  <a href="(https://github.com/unit-mesh/edge-inference/actions/workflows/rust.yml">
-    <img src="https://github.com/unit-mesh/edge-inference/actions/workflows/rust.yml/badge.svg" alt="Build" />
+  <a href="(https://github.com/unit-mesh/edge-infer/actions/workflows/rust.yml">
+    <img src="https://github.com/unit-mesh/edge-infer/actions/workflows/ci.yml/badge.svg" alt="Build" />
   </a>
 </p>
 
