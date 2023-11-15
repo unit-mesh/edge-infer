@@ -11,9 +11,11 @@
 > EdgeMind enables efficient edge intelligence by running small AI models, including embeddings and OnnxModels, on
 resource-constrained devices like Android, iOS, or MCUs for real-time decision-making.
 
+Architecture:
+
 <img src="./docs/edge-mind.svg" width="320px" alt="EdgeMind Architecture" />
 
-Platform:
+Platform support (by Design):
 
 - Android, iOS
 - Linux, Windows, Mac,
