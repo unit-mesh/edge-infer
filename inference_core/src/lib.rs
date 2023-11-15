@@ -48,7 +48,25 @@ mod tests {
 
         let semantic = init_semantic(model, tokenizer_data).unwrap();
         let embedding = semantic.embed("hello world").unwrap();
-        // the default embedding size is 128
         assert_eq!(embedding.len(), 128);
+    }
+
+    #[test]
+    fn should_find_relevant() {
+        let model = std::fs::read("../model/model.onnx").unwrap();
+        let tokenizer_data = std::fs::read("../model/tokenizer.json").unwrap();
+
+        let semantic = init_semantic(model, tokenizer_data).unwrap();
+        let hello = "hello world";
+        let pure_text_hello = semantic.embed(hello).unwrap();
+        let code_hello_text = "print('hello world')";
+        let code_hello = semantic.embed(code_hello_text).unwrap();
+
+        let embedding_store = InMemoryEmbeddingStore::new();
+        embedding_store.add(hello.to_string(), pure_text_hello.clone(), Document::from(hello.to_string()));
+        embedding_store.add(code_hello_text.to_string(), code_hello.clone(), Document::from(code_hello_text.to_string()));
+
+        let vec = embedding_store.find_relevant(pure_text_hello, 1, 0.0);
+        assert_eq!(vec.len(), 1);
     }
 }
