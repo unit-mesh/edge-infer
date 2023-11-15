@@ -63,10 +63,10 @@ jobs:
 
       - name: Run tests
         run: cargo test --verbose
-
-      - name: Build Android for Testing
-        working-directory: inference_core
-        run: cargo build --target aarch64-linux-android
+#
+#      - name: Build Android for Testing
+#        working-directory: inference_core
+#        run: cargo build --target aarch64-linux-android
 
       - name: Build Android Cargo
         working-directory: examples/android
