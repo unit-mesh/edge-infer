@@ -5,8 +5,10 @@ edition = "2021"
 
 [dependencies]
 # follow https://github.com/pykeio/ort/issues/97
-ort = { git = "https://github.com/pykeio/ort.git", rev = "9a631f1" }
-tokenizers = { version = "0.14.1", default-features = false, features = ["progressbar", "cli", "onig", "esaxx_fast"] }
+# default-features will use ureq -> ring library, which will cause error in macOS for cross-compiling
+# so we disable default-features, following: https://github.com/pykeio/ort/blob/main/Cargo.toml
+ort = { git = "https://github.com/pykeio/ort.git", rev = "9a631f1", default-features = false, features = ["load-dynamic"] }
+tokenizers = { version = "0.15.0", default-features = false, features = ["progressbar", "cli", "onig", "esaxx_fast"] }
 ndarray = "0.15.6"
 
 uniffi = { version = "0.25", features = ["cli"] }

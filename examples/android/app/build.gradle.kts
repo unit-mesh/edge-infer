@@ -20,13 +20,22 @@ android {
     defaultConfig {
         applicationId = "org.unitmesh.inference"
         minSdk = 24
-        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
+        }
+
+        externalNativeBuild {
+            cmake {
+                abiFilters.add("arm64-v8a")
+                abiFilters.add("armeabi-v7a")
+                abiFilters.add("x86")
+                abiFilters.add("x86_64")
+                arguments += listOf("-DANDROID_ARM_NEON=TRUE", "-DANDROID_STL=c++_shared")
+            }
         }
     }
 
