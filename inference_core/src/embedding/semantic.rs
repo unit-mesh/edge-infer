@@ -22,19 +22,6 @@ impl Drop for Semantic {
     }
 }
 
-pub fn init_semantic(model: Vec<u8>, tokenizer_data: Vec<u8>) -> Result<Arc<Semantic>, SemanticError> {
-    let result = Semantic::init_semantic(model, tokenizer_data)?;
-    Ok(Arc::new(result))
-}
-
-pub fn init_semantic_with_path(model_path: &str, tokenizer_path: &str) -> Result<Arc<Semantic>, SemanticError> {
-    let model = std::fs::read(model_path).map_err(|_| SemanticError::InitModelReadError)?;
-    let tokenizer_data = std::fs::read(tokenizer_path).map_err(|_| SemanticError::InitTokenizerReadError)?;
-
-    let result = Semantic::init_semantic(model, tokenizer_data)?;
-    Ok(Arc::new(result))
-}
-
 impl Semantic {
     pub async fn initialize(model: Vec<u8>, tokenizer_data: Vec<u8>) -> Result<Pin<Box<Semantic>>, SemanticError> {
         let semantic = Self::init_semantic(model, tokenizer_data)?;
