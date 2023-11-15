@@ -1,10 +1,11 @@
-# EdgeEmbedding
+# EdgeMind
 
 [![Rust](https://github.com/unit-mesh/edge-inference/actions/workflows/rust.yml/badge.svg)](https://github.com/unit-mesh/edge-inference/actions/workflows/rust.yml)
 
-EdgeMind enables efficient edge intelligence by running small AI models, including embeddings and OnnxModels, on resource-constrained devices like Android, iOS, or MCUs for real-time decision-making.
+EdgeMind enables efficient edge intelligence by running small AI models, including embeddings and OnnxModels, on
+resource-constrained devices like Android, iOS, or MCUs for real-time decision-making.
 
-- Onnx Runtime
+![EdgeMind Architecture](docs/edge-mind.svg)
 
 Platform:
 
@@ -19,7 +20,10 @@ Platform:
 - [x] Tokenizer
 - [ ] [UniFFI](https://github.com/mozilla/uniffi-rs), is a toolkit for building cross-platform software components in
   Rust.
-- [ ] Multiple OS support: Windows, Mac, Android, iOS, Linux Desktop (x86, x64), Embedded Linux (ARM).
+- [ ] Multiple OS support:
+    - Desktop: Windows, Mac
+    - Mobile: Android, iOS, Linux Desktop (x86, x64)
+    - Embedded Linux (ARM).
 - [ ] Flexible Configuration: Easily configurable via command-line parameters, including listening port, batch size,
   thread count, and others.
 
@@ -32,7 +36,7 @@ Platform:
 - [ ] Visualization
     - Model: [Ultralytics YOLOv9](https://github.com/ultralytics/ultralytics)
 - [ ] AutoComplete
-    - Model: Embedding with ?? 
+    - Model: Embedding with ??
 - [ ] Summarization
 
 ## Resources
