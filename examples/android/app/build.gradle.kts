@@ -6,7 +6,7 @@ plugins {
 
 cargo {
     prebuiltToolchains = true
-    targetDirectory = "$projectDir/../../../../target" // because of workspace
+    targetDirectory = "$projectDir/../../../target"    // because of workspace
     module = "$projectDir/../../../inference_core"     // Or whatever directory contains your Cargo.toml
     libname = "inference_core"                         // Or whatever matches Cargo.toml's [package] name.
     profile = "release"
