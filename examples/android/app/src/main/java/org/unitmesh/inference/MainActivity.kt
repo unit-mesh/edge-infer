@@ -10,11 +10,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import org.unitmesh.bindgen.Document
+import org.unitmesh.bindgen.InMemoryEmbeddingStore
+import org.unitmesh.bindgen.Metadata
 import org.unitmesh.inference.ui.theme.InferenceExampleTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val store = InMemoryEmbeddingStore()
+        val metadata = Metadata(mapOf())
+        store.add("hello", listOf(0.1f), Document("", metadata, "", listOf()))
+        store.findRelevant(listOf(0.1f), 1, 0.5f)
+
         setContent {
             InferenceExampleTheme {
                 // A surface container using the 'background' color from the theme
