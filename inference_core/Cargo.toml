@@ -21,7 +21,7 @@ thiserror = "1.0.50"
 [target.'cfg(windows)'.dependencies]
 ort = { git = "https://github.com/pykeio/ort.git", rev = "9a631f1", default-features = true }
 
-[target.'cfg(macos)'.dependencies]
+[target.'cfg(target_os = "macos")'.dependencies]
 ort = { git = "https://github.com/pykeio/ort.git", rev = "9a631f1", default-features = true }
 
 [target.'cfg(linux)'.dependencies]
