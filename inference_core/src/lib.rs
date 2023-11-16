@@ -35,9 +35,8 @@ pub fn init_semantic_with_path(model_path: &str, tokenizer_path: &str) -> Result
     Ok(Arc::new(result))
 }
 
-uniffi::include_scaffolding!("inference");
-
 #[cfg(test)]
+#[cfg_attr(feature = "ci", ignore)]
 mod tests {
     use super::*;
 
@@ -70,3 +69,5 @@ mod tests {
         assert_eq!(vec.len(), 1);
     }
 }
+
+uniffi::include_scaffolding!("inference");

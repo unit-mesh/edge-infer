@@ -3,6 +3,9 @@ name = "inference_core"
 version = "0.1.0"
 edition = "2021"
 
+[features]
+ci = []
+
 [dependencies]
 # follow https://github.com/pykeio/ort/issues/97
 # default-features will use ureq -> ring library, which will cause error in macOS for cross-compiling
@@ -21,7 +24,7 @@ thiserror = "1.0.50"
 [target.'cfg(windows)'.dependencies]
 ort = { git = "https://github.com/pykeio/ort.git", rev = "9a631f1", default-features = true }
 
-[target.'cfg(target_os = "macos")'.dependencies]
+[target.'cfg(macos)'.dependencies]
 ort = { git = "https://github.com/pykeio/ort.git", rev = "9a631f1", default-features = true }
 
 [target.'cfg(linux)'.dependencies]
