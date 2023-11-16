@@ -36,11 +36,11 @@ pub fn init_semantic_with_path(model_path: &str, tokenizer_path: &str) -> Result
 }
 
 #[cfg(test)]
-#[cfg_attr(feature = "ci", ignore)]
 mod tests {
     use super::*;
 
     #[test]
+    #[cfg_attr(feature = "ci", ignore)]
     fn test_init_semantic() {
         let model = std::fs::read("../model/model.onnx").unwrap();
         let tokenizer_data = std::fs::read("../model/tokenizer.json").unwrap();
@@ -51,6 +51,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg_attr(feature = "ci", ignore)]
     fn should_find_relevant() {
         let model = std::fs::read("../model/model.onnx").unwrap();
         let tokenizer_data = std::fs::read("../model/tokenizer.json").unwrap();
