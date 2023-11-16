@@ -4,5 +4,6 @@ members = [
     "inference_wasm",
     "inference_grpc",
 
-#    "inference_rpi",
+    "edge/inference_rpi",
+    "edge/inference_esp32",
 ]
