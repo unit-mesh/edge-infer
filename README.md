@@ -50,6 +50,10 @@ Platform support (by Design):
 
 ## Resources
 
+Examples:
+
+- Modern cross-platform telemetry: [Glean](https://github.com/mozilla/glean)
+
 ### MCU
 
 ToSpike

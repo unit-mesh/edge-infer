@@ -1,3 +1,6 @@
+[alias]
+uniffi-bindgen = ["run", "--package", "embedded-uniffi-bindgen", "--"]
+
 [env]
 ORT_STRATEGY = { value = "system" }
 ORT_LIB_LOCATION = { value = "vendor/lib" , relative = true }

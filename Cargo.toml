@@ -4,6 +4,8 @@ members = [
     "inference_wasm",
     "inference_grpc",
 
+    "embedded-uniffi-bindgen",
+
     "edge/inference_rpi",
     "edge/inference_esp32",
 ]
