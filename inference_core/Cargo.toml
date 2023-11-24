@@ -10,7 +10,7 @@ ci = []
 # follow https://github.com/pykeio/ort/issues/97
 # default-features will use ureq -> ring library, which will cause error in macOS for cross-compiling
 # so we disable default-features, following: https://github.com/pykeio/ort/blob/main/Cargo.toml
-ort = { git = "https://github.com/pykeio/ort.git", rev = "9a631f1", default-features = false, features = ["load-dynamic"] }
+ort = { version = "2.0.0-alpha.1", default-features = false, features = ["load-dynamic"] }
 tokenizers = { version = "0.15.0", default-features = false, features = ["progressbar", "cli", "onig", "esaxx_fast"] }
 ndarray = "0.15.6"
 
@@ -22,13 +22,13 @@ thiserror = "1.0.50"
 # so we disable default-features, following: https://github.com/pykeio/ort/blob/main/Cargo.toml
 # all os: https://doc.rust-lang.org/reference/conditional-compilation.html#target_os
 [target.'cfg(windows)'.dependencies]
-ort = { git = "https://github.com/pykeio/ort.git", rev = "9a631f1", default-features = true }
+ort = { version = "2.0.0-alpha.1", default-features = true }
 
 [target.'cfg(macos)'.dependencies]
-ort = { git = "https://github.com/pykeio/ort.git", rev = "9a631f1", default-features = true }
+ort = { version = "2.0.0-alpha.1", default-features = true }
 
 [target.'cfg(linux)'.dependencies]
-ort = { git = "https://github.com/pykeio/ort.git", rev = "9a631f1", default-features = true }
+ort = { version = "2.0.0-alpha.1", default-features = true }
 
 [[bin]]
 # This can be whatever name makes sense for your project, but the rest of this tutorial assumes uniffi-bindgen.

@@ -4,7 +4,7 @@ use std::pin::Pin;
 use std::sync::Arc;
 
 use ndarray::Axis;
-use ort::{Environment, ExecutionProvider, GraphOptimizationLevel, LoggingLevel, SessionBuilder};
+use ort::{ExecutionProviderDispatch, GraphOptimizationLevel, LoggingLevel, SessionBuilder};
 
 use crate::embedding::Embedding;
 
@@ -30,13 +30,13 @@ impl Semantic {
     }
 
     pub fn init_semantic(model: Vec<u8>, tokenizer_data: Vec<u8>) -> Result<Semantic, SemanticError> {
-        let environment = Arc::new(
-            Environment::builder()
-                .with_name("Encode")
-                .with_log_level(LoggingLevel::Warning)
-                .with_execution_providers([ExecutionProvider::CPU(Default::default())])
-                .build().map_err(|e| SemanticError::InitBuildOrtEnv)?,
-        );
+        ort::init()
+            .with_name("Encode")
+            .with_log_level(LoggingLevel::Warning)
+            .with_execution_providers([ExecutionProviderDispatch::CPU(Default::default())])
+            .commit()
+            .map_err(|e| SemanticError::InitBuildOrtEnv)?;
+
 
         let threads = if let Ok(v) = std::env::var("NUM_OMP_THREADS") {
             str::parse(&v).unwrap_or(1)
@@ -52,7 +52,8 @@ impl Semantic {
         let semantic = Self {
             model_ref,
             tokenizer,
-            session: SessionBuilder::new(&environment).map_err(|e| SemanticError::InitSessionBuilder)?
+            session: SessionBuilder::new()
+                .map_err(|e| SemanticError::InitSessionBuilder)?
                 .with_optimization_level(GraphOptimizationLevel::Level3).map_err(|e| SemanticError::InitSessionOptimization)?
                 .with_intra_threads(threads).map_err(|e| SemanticError::InitSessionThreads)?
                 .with_model_from_memory(model_ref)
@@ -82,19 +83,19 @@ impl Semantic {
             .into_shape((1, sequence_length))
             .map_err(|_| SemanticError::ShapeError)?
             .into_dyn();
-        let input_ids = ort::Value::from_array(None, &input_ids).unwrap();
+        let input_ids = ort::Value::from_array(&input_ids).unwrap();
 
         let attention_mask = ndarray::CowArray::from(&attention_mask)
             .into_shape((1, sequence_length))
             .map_err(|_| SemanticError::ShapeError)?
             .into_dyn();
-        let attention_mask = ort::Value::from_array(None, &attention_mask).unwrap();
+        let attention_mask = ort::Value::from_array(&attention_mask).unwrap();
 
         let token_type_ids = ndarray::CowArray::from(&token_type_ids)
             .into_shape((1, sequence_length))
             .map_err(|_| SemanticError::ShapeError)?
             .into_dyn();
-        let token_type_ids = ort::Value::from_array(None, &token_type_ids).unwrap();
+        let token_type_ids = ort::Value::from_array(&token_type_ids).unwrap();
 
         println!("token_type_ids: {:?}", token_type_ids);
 
@@ -122,7 +123,7 @@ pub enum SemanticError {
     InitBuildOrtEnv,
     InitSessionThreads,
     InitModelReadError,
-    InitTokenizerReadError
+    InitTokenizerReadError,
 }
 
 impl Display for SemanticError {
