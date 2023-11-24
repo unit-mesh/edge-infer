@@ -6,6 +6,9 @@
   <a href="(https://github.com/unit-mesh/edge-infer/actions/workflows/rust.yml">
     <img src="https://github.com/unit-mesh/edge-infer/actions/workflows/ci.yml/badge.svg" alt="Build" />
   </a>
+  <a href="https://crates.io/crates/enfer_core">
+    <img src="https://img.shields.io/crates/v/enfer_core" alt="Crates.io" />
+  </a>
 </p>
 
 > EdgeInfer enables efficient edge intelligence by running small AI models, including embeddings and OnnxModels, on

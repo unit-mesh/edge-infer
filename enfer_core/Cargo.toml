@@ -1,5 +1,5 @@
 [package]
-name = "inference_core"
+name = "enfer_core"
 version = "0.1.0"
 authors = ["Phodal <h@phodal.com>", "CGQAQ <m.jason.liu@outlook.com>"]
 description = "Feakin is a architecture design and visual collaboration tool. This is the parser for Feakin."

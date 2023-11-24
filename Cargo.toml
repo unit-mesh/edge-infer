@@ -1,8 +1,9 @@
 [workspace]
 members = [
-    "inference_core",
-    "inference_wasm",
-    "inference_grpc",
+    "enfer",
+    "enfer_core",
+    "enfer_wasm",
+    "enfer_grpc",
 
     "embedded-uniffi-bindgen",
 

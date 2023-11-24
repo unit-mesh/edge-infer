@@ -1,0 +1,6 @@
+firefox:
+    enfer_wasm-pack test --headless --firefox
+build:
+    enfer_wasm-pack build
+publish:
+    enfer_wasm-pack publish
