@@ -14,4 +14,7 @@ prepare-android:
 	rustup target add i686-linux-android
 
 bindgen-swift:
+	export ORT_STRATEGY=system
+	export ORT_LIB_LOCATION=vendor/lib
 	cargo uniffi-bindgen generate enfer_core/src/inference.udl --language swift --out-dir examples/ios/InferenceCore/InferenceCore
+	export ORT_STRATEGY=download
