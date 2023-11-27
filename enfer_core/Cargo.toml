@@ -30,6 +30,8 @@ ci = []
 # follow https://github.com/pykeio/ort/issues/97
 # default-features will use ureq -> ring library, which will cause error in macOS for cross-compiling
 # so we disable default-features, following: https://github.com/pykeio/ort/blob/main/Cargo.toml
+ort = { version = "2.0.0-alpha.1", default-features = true }
+
 tokenizers = { version = "0.15.0", default-features = false, features = ["progressbar", "cli", "onig", "esaxx_fast"] }
 ndarray = "0.15.6"
 
@@ -40,9 +42,6 @@ thiserror = "1.0.50"
 # default-features will use ureq -> ring library, which will cause error in macOS for cross-compiling,
 # so we disable default-features, following: https://github.com/pykeio/ort/blob/main/Cargo.toml
 # all os: https://doc.rust-lang.org/reference/conditional-compilation.html#target_os
-[target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
-ort = { version = "2.0.0-alpha.1", default-features = true }
-#
 #[target.'cfg(target_os = "android")'.dependencies]
 #ort = { version = "2.0.0-alpha.1", default-features = false, features = ["load-dynamic"] }
 #
