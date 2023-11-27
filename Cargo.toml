@@ -7,6 +7,6 @@ members = [
 
     "embedded-uniffi-bindgen",
 
-    "edge/inference_rpi",
-    "edge/inference_esp32",
+    "edge/enfer_rpi",
+    "edge/enfer_esp32",
 ]

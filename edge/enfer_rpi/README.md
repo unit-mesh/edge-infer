@@ -36,13 +36,13 @@ cargo build --release --target=arm-unknown-linux-gnueabihf
 ### 4. copy to pi
 
 ```bash
-scp target/arm-unknown-linux-gnueabihf/release/inference_rpi pi@192.168.1.199:~/inference_rpi
+scp target/arm-unknown-linux-gnueabihf/release/enfer_rpi pi@192.168.1.199:~/enfer_rpi
 ```
 
 ### 5. run
 
 ```bash
-./inference_rpi
+./enfer_rpi
 ```
 
 ## FAQ
