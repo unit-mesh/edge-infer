@@ -122,7 +122,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     println!("GreeterServer listening on {}", addr);
 
-
     Server::builder()
         .add_service(TokenizerServer::new(greeter))
         .serve(addr)

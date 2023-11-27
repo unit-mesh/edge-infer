@@ -3,6 +3,7 @@ use std::io::{Cursor, Read};
 use async_stream::stream;
 use tokenizer::tokenizer_client::TokenizerClient;
 use tokenizer::EncodeRequest;
+use tokenizer::EncodeReply;
 
 pub mod tokenizer {
     tonic::include_proto!("tokenizer");
@@ -47,14 +48,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     }).await?;
     println!("model RESPONSE={:?}", response);
 
-
     let response =  client.init_model(()).await ;
-
 
     let request = tonic::Request::new(EncodeRequest {
         text: "Tonic".into(),
     });
 
+    let response = client.encode(request).await?;
     println!("RESPONSE={:?}", response);
 
     Ok(())
