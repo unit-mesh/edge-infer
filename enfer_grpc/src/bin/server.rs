@@ -17,7 +17,6 @@ pub mod tokenizer {
 #[derive(Default)]
 pub struct MyTokenizer {
     sema: Mutex<Option<Pin<Box<Semantic>>>>,
-
     tokenzier: Mutex<Vec<u8>>,
     model: Mutex<Vec<u8>>,
 }
@@ -33,7 +32,7 @@ impl Tokenizer for MyTokenizer {
             let json = match json {
                 Ok(j) => j,
 
-                Err(e) => return Ok(Response::new(GeneralResponse{
+                Err(e) => return Ok(Response::new(GeneralResponse {
                     success: false,
                     error: format!("json error: {}", e).into(),
                 })),
@@ -42,7 +41,7 @@ impl Tokenizer for MyTokenizer {
         }
 
 
-        Ok(Response::new(GeneralResponse{
+        Ok(Response::new(GeneralResponse {
             success: true,
             error: None,
         }))
@@ -57,7 +56,7 @@ impl Tokenizer for MyTokenizer {
             let model = match model {
                 Ok(j) => j,
 
-                Err(e) => return Ok(Response::new(GeneralResponse{
+                Err(e) => return Ok(Response::new(GeneralResponse {
                     success: false,
                     error: format!("model error: {}", e).into(),
                 })),
@@ -66,11 +65,10 @@ impl Tokenizer for MyTokenizer {
         }
 
 
-        Ok(Response::new(GeneralResponse{
+        Ok(Response::new(GeneralResponse {
             success: true,
             error: None,
         }))
-
     }
 
     async fn init_model(&self, _: tonic::Request<()>) -> Result<Response<GeneralResponse>, Status> {
@@ -80,7 +78,7 @@ impl Tokenizer for MyTokenizer {
 
         let sema = match Semantic::initialize(model.clone(), tokenizer.clone()).await {
             Ok(t) => t,
-            Err(e) => return Ok(Response::new(GeneralResponse{
+            Err(e) => return Ok(Response::new(GeneralResponse {
                 success: false,
                 error: format!("sma init failed: {}", e).into(),
             })),
@@ -91,21 +89,25 @@ impl Tokenizer for MyTokenizer {
             s.replace(sema);
         }
 
-        Ok(Response::new(GeneralResponse{
+        Ok(Response::new(GeneralResponse {
             success: true,
             error: None,
         }))
-
     }
 
     async fn encode(
         &self,
         request: Request<EncodeRequest>,
     ) -> Result<Response<EncodeReply>, Status> {
-        println!("Got a request from {:?}", request.remote_addr());
+        let text = request.into_inner().text;
+        let embedding = self.sema.lock().await.as_ref()
+            .ok_or(Status::new(tonic::Code::FailedPrecondition, "model not initialized"))?
+            .embed(&text)
+            .map_err(|e| Status::new(tonic::Code::Internal, format!("embed failed: {}", e)))?;
 
         let reply = tokenizer::EncodeReply {
-            text: format!("Hello {}!", request.into_inner().text),
+            text: text.into(),
+            embedding: embedding.0,
         };
 
         Ok(Response::new(reply))
