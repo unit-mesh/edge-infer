@@ -1,5 +1,5 @@
 [package]
-name = "inference_wasm"
+name = "enfer_wasm"
 version = "0.1.0"
 authors = ["Phodal Huang <h@phodal.com>"]
 edition = "2021"
@@ -11,6 +11,8 @@ crate-type = ["cdylib", "rlib"]
 default = ["console_error_panic_hook"]
 
 [dependencies]
+enfer_core = { path = "../enfer_core" }
+
 wasm-bindgen = "0.2.88"
 
 tracing = "0.1.40"
