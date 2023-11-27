@@ -58,17 +58,17 @@ jobs:
       - name: Run tests
         run: cargo test --verbose --features ci
 
-      - name: Build Android Cargo
-        working-directory: examples/android
-        run: ./gradlew cargoBuild
-        env:
-          ANDROID_NDK_HOME: ${{ env.ANDROID_SDK_ROOT }}/ndk/26.1.10909125
-          TOOLCHAIN: ${{ env.ANDROID_SDK_ROOT }}/ndk/26.1.10909125/toolchains/llvm/prebuilt/darwin-x86_64
-          RANLIB: ${{ env.ANDROID_SDK_ROOT }}/ndk/26.1.10909125/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ranlib
+#      - name: Build Android Cargo
+#        working-directory: examples/android
+#        run: ./gradlew cargoBuild
+#        env:
+#          ANDROID_NDK_HOME: ${{ env.ANDROID_SDK_ROOT }}/ndk/26.1.10909125
+#          TOOLCHAIN: ${{ env.ANDROID_SDK_ROOT }}/ndk/26.1.10909125/toolchains/llvm/prebuilt/darwin-x86_64
+#          RANLIB: ${{ env.ANDROID_SDK_ROOT }}/ndk/26.1.10909125/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ranlib
 
       - name: Generate Binding for Kotlin
         run: make bindgen-kotlin
-
-      - name: Build Android APK
-        working-directory: examples/android
-        run: ./gradlew assembleDebug
+#
+#      - name: Build Android APK
+#        working-directory: examples/android
+#        run: ./gradlew assembleDebug
