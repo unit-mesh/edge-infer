@@ -1,8 +1,6 @@
 mod utils;
 
-use std::sync::Arc;
 use wasm_bindgen::prelude::*;
-use inference_core::{Semantic, SemanticError};
 
 #[wasm_bindgen]
 extern "C" {

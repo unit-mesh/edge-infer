@@ -1,6 +1,7 @@
 firefox:
-    enfer_wasm-pack test --headless --firefox
+    wasm-pack test --headless --firefox
 build:
-    enfer_wasm-pack build
+    #export CPATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.sdk/usr/include
+    wasm-pack build
 publish:
-    enfer_wasm-pack publish
+    wasm-pack publish
