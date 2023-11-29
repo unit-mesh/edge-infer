@@ -23,6 +23,20 @@ pub struct InMemoryEmbeddingStore {
     entries: Arc<Mutex<Vec<Entry>>>,
 }
 
+/// An in-memory implementation of the EmbeddingStore trait.
+///
+/// Example:
+/// ```rust
+/// use inference_core::{Document, InMemoryEmbeddingStore, Semantic};
+///
+/// let semantic = Semantic::new();
+/// let store = InMemoryEmbeddingStore::new();
+///
+/// let embedding = semantic.embed("Hello world!");
+/// let id = store.add("".to_string(), embedding, Document::from("Hello world!".to_string()));
+/// let matches = store.find_relevant(embedding, 10, 0.0);
+/// assert_eq!(matches.len(), 1);
+/// ```
 impl InMemoryEmbeddingStore {
     pub fn new() -> Self {
         InMemoryEmbeddingStore { entries: Arc::new(Mutex::new(vec![])) }

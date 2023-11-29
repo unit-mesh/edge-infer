@@ -63,6 +63,16 @@ impl Semantic {
         Ok(semantic)
     }
 
+    /// Embeds a sequence of text into a vector of xxx floats. The xxx floats are the embedding of the sequence.
+    ///
+    /// Example:
+    /// ```rust
+    /// use inference_core::Semantic;
+    ///
+    /// let semantic = Semantic::new();
+    /// let embedding = semantic.embed("Hello world!");
+    /// assert_eq!(embedding.len(), 128); // if the model dimension is 128
+    /// ```
     pub fn embed(&self, sequence: &str) -> Result<Embedding, SemanticError> {
         let encoding = self.tokenizer.encode(sequence, true)
             .map_err(|_| SemanticError::TokenizeEncodeError)?;

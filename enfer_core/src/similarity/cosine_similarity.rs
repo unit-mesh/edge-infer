@@ -3,7 +3,10 @@ use crate::similarity::Similarity;
 
 pub struct CosineSimilarity;
 
+/// Cosine similarity is a measure of similarity between two non-zero vectors of an inner product space that measures the cosine of the angle between them.
+/// The cosine of 0° is 1, and it is less than 1 for any other angle.
 impl Similarity for CosineSimilarity {
+    /// Calculates the cosine similarity between two vectors.
     fn similarity_score(&self, vector_a: &Embedding, vector_b: &Embedding) -> f32 {
         if vector_a.len() != vector_b.len() {
             panic!(
