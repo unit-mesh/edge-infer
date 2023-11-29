@@ -97,8 +97,6 @@ impl Semantic {
             .into_dyn();
         let token_type_ids = ort::Value::from_array(&token_type_ids).unwrap();
 
-        println!("token_type_ids: {:?}", token_type_ids);
-
         let outputs = self.session
             .run(ort::inputs![input_ids, attention_mask, token_type_ids].unwrap())
             .unwrap();
