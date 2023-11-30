@@ -67,11 +67,11 @@ impl Semantic {
     ///
     /// Example:
     /// ```rust
-    /// use inference_core::Semantic;
+    /// use inference_core::{init_semantic_with_path, Semantic};
     ///
-    /// let semantic = Semantic::new();
-    /// let embedding = semantic.embed("Hello world!");
-    /// assert_eq!(embedding.len(), 128); // if the model dimension is 128
+    ///
+    /// let semantic = init_semantic_with_path("../model/model.onnx", "../model/tokenizer.json").unwrap();
+    /// let embedding = semantic.embed("Hello world!").unwrap();
     /// ```
     pub fn embed(&self, sequence: &str) -> Result<Embedding, SemanticError> {
         let encoding = self.tokenizer.encode(sequence, true)

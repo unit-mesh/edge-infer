@@ -27,13 +27,13 @@ pub struct InMemoryEmbeddingStore {
 ///
 /// Example:
 /// ```rust
-/// use inference_core::{Document, InMemoryEmbeddingStore, Semantic};
+/// use inference_core::{Document, init_semantic_with_path, InMemoryEmbeddingStore, Semantic};
 ///
-/// let semantic = Semantic::new();
+/// let semantic = init_semantic_with_path("../model/model.onnx", "../model/tokenizer.json").unwrap();
 /// let store = InMemoryEmbeddingStore::new();
 ///
-/// let embedding = semantic.embed("Hello world!");
-/// let id = store.add("".to_string(), embedding, Document::from("Hello world!".to_string()));
+/// let embedding = semantic.embed("Hello world!").unwrap();
+/// let id = store.add("".to_string(), embedding.clone(), Document::from("Hello world!".to_string()));
 /// let matches = store.find_relevant(embedding, 10, 0.0);
 /// assert_eq!(matches.len(), 1);
 /// ```
