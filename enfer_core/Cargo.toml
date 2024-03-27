@@ -35,7 +35,7 @@ ort = { version = "2.0.0-alpha.1", default-features = true }
 tokenizers = { version = "0.15.0", default-features = false, features = ["progressbar", "cli", "onig", "esaxx_fast"] }
 ndarray = "0.15.6"
 
-uniffi = { version = "0.26" }
+uniffi = { version = "0.27" }
 uuid = { version = "1.5.0", features = ["v4"] }
 thiserror = "1.0.50"
 
@@ -56,7 +56,7 @@ crate-type = ["lib", "cdylib", "staticlib"]
 name = "inference_core"
 
 [build-dependencies]
-uniffi = { version = "0.26", features = ["build"] }
+uniffi = { version = "0.27", features = ["build"] }
 
 [dev-dependencies]
-uniffi = { version = "0.26", features = ["bindgen-tests"] }
+uniffi = { version = "0.27", features = ["bindgen-tests"] }
