@@ -32,7 +32,7 @@ ci = []
 # so we disable default-features, following: https://github.com/pykeio/ort/blob/main/Cargo.toml
 ort = { version = "2.0.0-alpha.1", default-features = true }
 
-tokenizers = { version = "0.15.0", default-features = false, features = ["progressbar", "cli", "onig", "esaxx_fast"] }
+tokenizers = { version = "0.19.0", default-features = false, features = ["progressbar", "cli", "onig", "esaxx_fast"] }
 ndarray = "0.15.6"
 
 uniffi = { version = "0.27" }
